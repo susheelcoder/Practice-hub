@@ -1,0 +1,171 @@
+section {
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+
+div {
+    height: 150px;
+    width: 150px;
+    background-color: aqua;
+}
+
+.se-1 div {
+    border-color: rgb(245, 5, 5);
+    border-width: 14px;
+}
+
+.div-1 {
+    border-style: dashed;
+}
+
+.div-2 {
+    border-style: dotted;
+}
+
+.div-3 {
+    border-style: double;
+}
+
+.div-4 {
+    border-style: groove;
+}
+
+.div-5 {
+    border-style: solid;
+}
+
+.se-2 div {
+    border-color: blueviolet;
+
+}
+
+.div-6 {
+    border-style: solid;
+    border-radius: 10px;
+}
+
+
+.div-7 {
+    border-style: solid;
+    border-radius: 50vh;
+}
+
+.div-8 {
+    border-style: solid;
+    border-top: 0px;
+    border-left: 0px;
+}
+
+.div-9 {
+    border-style: solid;
+    border-width: 20px;
+    border-style: dashed;
+    /* border-bottom-style: dotted; */
+    border-style: dotted;
+    border-image: url(https://static.vecteezy.com/system/resources/thumbnails/057/068/323/small/single-fresh-red-strawberry-on-table-green-background-food-fruit-sweet-macro-juicy-plant-image-photo.jpg);
+    border-image-outset: 2cap;
+}
+
+
+.div-10 {
+    border-style: solid;
+    border-width: 20px;
+    border-style: dashed;
+    /* border-bottom-style: dotted; */
+    border-style: dotted;
+    border-image: url(https://static.vecteezy.com/system/resources/thumbnails/057/068/323/small/single-fresh-red-strawberry-on-table-green-background-food-fruit-sweet-macro-juicy-plant-image-photo.jpg);
+    /* border-image-width: 20; */
+    border-image-slice: 1%;
+
+}
+
+
+
+/* 
+
+
+.div-2 {
+    border-radius: 10px;
+    border-color: rgb(245, 5, 5);
+    border-style: solid;
+}
+
+.div-3 {
+    border-radius: 10px;
+    border-color: rgb(245, 5, 5);
+    border-style: solid;
+    border-width: 14px;
+}
+
+.div-4 {
+    border-radius: 10px;
+    border-color: rgb(245, 5, 5);
+    border-style: solid;
+    border-width: 14px;
+    border-top: 0px;
+    border-left: 0;
+    border-right: 0;
+    border-style: dashed;
+}
+
+.div-5 {
+    border-radius: 10px;
+    border-color: rgb(245, 5, 5);
+    border-width: 14px;
+    border-style: dashed;
+}
+
+.div-6 {
+    border-radius: 10px;
+    border-color: rgb(245, 5, 5);
+    border-width: 10px;
+    border-style: dotted;
+}
+
+.div-7 {
+    border-radius: 10px;
+    border-color: rgb(245, 5, 5);
+    border-width: 10px;
+    border-style: double;
+}
+
+.div-8 {
+    border-radius: 10px;
+    border-color: rgb(245, 5, 5);
+    border-width: 10px;
+    border-style: groove;
+}
+
+
+.div-9 {
+    border-radius: 10px;
+    border-color: rgb(245, 5, 5);
+    border-width: 10px;
+    border-style: outset;
+}
+
+
+
+.div-10 {
+    border-radius: 10px;
+    border-color: rgb(245, 5, 5);
+    border-width: 10px;
+    border-style: ridge;
+}
+
+.div-11 {
+    border-radius: 10px;
+    border-color: rgb(245, 5, 5);
+    border-width: 10px;
+    border-style: ridge;
+}
+
+
+.div-12 {
+    border-radius: 10px;
+    border-color: rgb(245, 5, 5);
+    border-width: 10px;
+    border-style: ridge;
+} */
