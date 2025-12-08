@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Coding Projects</title>
+    <link rel="icon" type="image/png" href="IM-VO/icon/6.png">
+
+    <base href="/0.img+video/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <meta http-equiv="refresh" content="3; url=/">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .img-box {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .box {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <!-- Normal Day Screen -->
+        <section id="normal-day" style="display:none;">
+            <div class="logo">Susheel Coder</div>
+            <div class="tagline">Coding Innovation, Building Solutions</div>
+
+            <div class="loader">
+                <div class="loader-circle"></div>
+                <div class="loader-inner">
+                    Visitor No.: <span id="visitor-number">...</span>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+
+            <div class="tech-icons">
+                <i class="fab fa-html5 tech-icon" style="animation-delay: 1.5s"></i>
+                <i class="fab fa-css3-alt tech-icon" style="animation-delay: 1.7s"></i>
+                <i class="fab fa-js tech-icon" style="animation-delay: 1.9s"></i>
+                <i class="fab fa-react tech-icon" style="animation-delay: 2.1s"></i>
+                <i class="fab fa-node-js tech-icon" style="animation-delay: 2.3s"></i>
+            </div>
+        </section>
+
+        <section id="img-box">
+            <!-- All Images/Videos -->
+            <div>
+                <img class="box" id="img1" src="P1.jpg" style="display:none;">
+                <video class="box" id="img2" autoplay muted src="v1.mp4" style="display:none;"></video>
+                <video class="box" id="christmas" autoplay muted src="Christmas_Day.mp4" style="display:none;"></video>
+                <video class="box" id="newyear" autoplay muted src="New_Year.mp4" style="display:none;"></video>
+            </div>
+
+        </section>
+    </main>
+
+
+
+
+    <script>
+        function showImageByDate() {
+            const today = new Date();
+            const d = today.getDate();
+            const m = today.getMonth() + 1;
+            const y = today.getFullYear();
+
+            const todayStr = `${d}/${m}/${y}`;
+
+            const dates = {
+                "6/12/2025": "img1",       // Image
+                "8/12/2025": "img2",       // Video 1
+                "25/12/2025": "christmas", // Christmas Video
+                "9/12/2025": "newyear"     // New Year Video
+            };
+
+            // Hide all images/videos
+            document.querySelectorAll("#img-box .box").forEach(el => {
+                el.style.display = "none";
+            });
+
+            // Hide normal day
+            document.getElementById("normal-day").style.display = "none";
+
+            // If today's date matches → show that image/video
+            if (dates[todayStr]) {
+                document.getElementById(dates[todayStr]).style.display = "block";
+            }
+            // Otherwise show normal day
+            else {
+                document.getElementById("normal-day").style.display = "block";
+            }
+        }
+
+        showImageByDate();
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        flex-direction: column;
+        color: white;
+        text-align: center;
+        overflow: hidden;
+        background-color: #0f172a ;
+    }
+
+    @media (min-width: 480px) {
+        body {
+            background-color: #0f172a ;
+        }
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: 'Poppins', sans-serif;
+        text-align: center;
+    }
+
+    .logo {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 1s ease-out;
+    }
+
+    .tagline {
+        font-size: 1.2rem;
+        font-weight: 400;
+        margin-bottom: 2rem;
+        color: #f0f0f0;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    .progress-container {
+        width: 315px;
+        height: 4px;
+        background-color: #0f172a;
+        border-radius: 2px;
+        overflow: hidden;
+        margin-top: 20px;
+        animation: fadeInUp 1s ease-out 0.6s both;
+        margin:4vh  auto 0;
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: rgb(26, 236, 107);
+        animation: progress 2s ease-in-out forwards;
+        animation-delay: 0.8s;
+    }
+
+    .loader {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin-bottom: 30px;
+        animation: fadeInUp 1s ease-out 0.9s both;
+        margin: auto;
+    }
+
+    .loader-circle {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 8px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        border-top-color: rgb(30, 30, 193);
+        animation: spin 2s linear infinite;
+    }
+
+    .loader-inner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1.4;
+        color: white;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .tech-icons {
+        display: flex;
+        gap: 1px;
+        margin-top: 30px;
+        animation: fadeInUp 1s ease-out 1.2s both;
+        
+    }
+
+    .tech-icon {
+        font-size: 24px;
+        opacity: 0;
+        animation: fadeIn 0.8s ease-out forwards;
+        color: white;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        transform: translateY(20px);
+        margin: auto;
+    }
+
+    /* Animations */
+    @keyframes spin {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes progress {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 100%;
+        }
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 600px) {
+        .logo {
+            font-size: 2.2rem;
+        }
+
+        .tagline {
+            font-size: 1rem;
+        }
+
+        .tech-icons {
+            font-size: 1.5rem;
+        }
+
+        .progress-container {
+            width: 90%;
+        }
+
+        .loader {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+    /* SEO Hidden Content for better keyword targeting */
+    .seo-content {
+        position: absolute;
+        left: -9999px;
+        top: -9999px;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+    }
+</style>
