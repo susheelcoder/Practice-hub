@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Weather Forecast XML</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #4f46e5, #6366f1);
+        font-family: Poppins, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
+    }
+
+    .box {
+        width: 380px;
+        padding: 25px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 0 25px rgba(0,0,0,0.2);
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        background: white;
+        color: #4f46e5;
+        font-weight: bold;
+    }
+
+    #result {
+        margin-top: 20px;
+        font-size: 17px;
+        line-height: 28px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>🌤 XML Weather Forecast</h2>
+
+    <input type="text" id="city" placeholder="Enter city name... (Example: India)">
+    <button onclick="getWeather()">Get Forecast</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function getWeather() {
+    const city = document.getElementById("city").value || "India";
+    const result = document.getElementById("result");
+
+    const API_KEY = "https://api.weatherapi.com/v1/forecast.xml?key=&q=india&days=1&aqi=yes&alerts=yes";  // ← यहाँ अपनी API key डालें
+
+    if (!API_KEY) {
+        result.innerHTML = "<p>❌ Please add your API Key!</p>";
+        return;
+    }
+
+    const url = `https://api.weatherapi.com/v1/forecast.xml?key=${API_KEY}&q=${city}&days=1&aqi=yes&alerts=yes`;
+
+    fetch(url)
+        .then(response => response.text())
+        .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+        .then(data => {
+            // XML से values निकालना
+            const location = data.getElementsByTagName("name")[0].textContent;
+            const country = data.getElementsByTagName("country")[0].textContent;
+
+            const temp = data.getElementsByTagName("temp_c")[0].textContent;
+            const condition = data.getElementsByTagName("text")[0].textContent;
+
+            const humidity = data.getElementsByTagName("humidity")[0].textContent;
+            const wind = data.getElementsByTagName("wind_kph")[0].textContent;
+
+            result.innerHTML = `
+                <h3>${location}, ${country}</h3>
+                <p><strong>Temperature:</strong> ${temp}°C</p>
+                <p><strong>Condition:</strong> ${condition}</p>
+                <p><strong>Humidity:</strong> ${humidity}%</p>
+                <p><strong>Wind Speed:</strong> ${wind} kph</p>
+            `;
+        })
+        .catch(err => {
+            result.innerHTML = "<p>❌ City not found or invalid API Key!</p>";
+        });
+}
+</script>
+
+</body>
+</html>
