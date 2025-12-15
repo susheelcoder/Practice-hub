@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right Click Blocker Test Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(46, 204, 113, 0.3);
+        }
+        
+        .content-section {
+            margin-bottom: 40px;
+        }
+        
+        .content-box {
+            border: 2px dashed #3498db;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 25px 0;
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
+        }
+        
+        .content-box:hover {
+            border-style: solid;
+            background-color: #f0f8ff;
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            color: #2980b9;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .instructions {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #3498db;
+        }
+        
+        .test-results {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .result-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .result-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 200px;
+        }
+        
+        .result-value {
+            display: inline-block;
+        }
+        
+        .success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .failure {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .counter {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2980b9;
+            margin-top: 10px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 25px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(41, 128, 185, 0.3);
+        }
+        
+        #toggleBtn {
+            background-color: #2ecc71;
+        }
+        
+        #toggleBtn:hover {
+            background-color: #27ae60;
+        }
+        
+        #resetBtn {
+            background-color: #e74c3c;
+        }
+        
+        #resetBtn:hover {
+            background-color: #c0392b;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .alert-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+            max-width: 400px;
+            display: none;
+        }
+        
+        .alert-title {
+            color: #e74c3c;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .alert-message {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .alert-button {
+            background-color: #3498db;
+            padding: 10px 25px;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✅ Right Click Blocker Test Page</h1>
+            <p class="subtitle">Test the functionality of right-click blocking on web content</p>
+            <div class="status-indicator" id="statusIndicator">Right-Click Protection: ACTIVE</div>
+            <div class="counter">Right-Click Attempts Blocked: <span id="blockCount">0</span></div>
+        </header>
+        
+        <main>
+            <div class="content-section">
+                <h2>Test Content Area</h2>
+                <p>Below is the content area where you can test the right-click blocking functionality.</p>
+                
+                <div class="content-box" id="testContent">
+                    <p>Yeh woh content hai jise aap padh rahe hain.</p>
+                    <p><span class="highlight">**Ab yahaan mouse laakar right-click karne ki koshish karein.**</span></p>
+                    <p>Agar aapko browser ka default menu nahi dikhta aur ek <strong>Alert Box</strong> dikhta hai, toh system kaam kar raha hai!</p>
+                    <p>You can also try to select and copy this text - the context menu will be blocked.</p>
+                </div>
+                
+                <div class="instructions">
+                    <h3>Testing Instructions:</h3>
+                    <ol>
+                        <li>Move your mouse over the content box above</li>
+                        <li>Try to right-click to open the browser's context menu</li>
+                        <li>You should see an alert message instead of the menu</li>
+                        <li>Try multiple times to see the counter increase</li>
+                        <li>Use the buttons below to toggle the blocker on/off</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="test-results">
+                <h2>Test Results</h2>
+                <div class="result-item">
+                    <span class="result-label">Right-Click Blocker Status:</span>
+                    <span class="result-value success" id="statusText">Active and Working</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Right-Clicks Blocked:</span>
+                    <span class="result-value" id="resultCount">0</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Last Attempt:</span>
+                    <span class="result-value" id="lastAttempt">No attempts yet</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Blocking Method:</span>
+                    <span class="result-value">JavaScript Event Listener</span>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="toggleBtn">Toggle Blocker ON/OFF</button>
+                <button id="testBtn">Test Left-Click (For Comparison)</button>
+                <button id="resetBtn">Reset Counter</button>
+            </div>
+        </main>
+        
+        <footer>
+            <p>This page demonstrates how to block right-click context menu using JavaScript.</p>
+            <p>Note: This is a client-side protection and can be bypassed by disabling JavaScript.</p>
+        </footer>
+    </div>
+    
+    <!-- Alert Box for right-click attempts -->
+    <div class="overlay" id="overlay"></div>
+    <div class="alert-box" id="alertBox">
+        <div class="alert-title">⚠️ Right-Click Blocked!</div>
+        <div class="alert-message" id="alertMessage">The right-click function has been disabled on this page to protect content.</div>
+        <button class="alert-button" id="closeAlert">OK, I Understand</button>
+    </div>
+
+    <script>
+        // Initialize variables
+        let isBlockerActive = true;
+        let blockCounter = 0;
+        let lastAttemptTime = null;
+        
+        // DOM Elements
+        const statusIndicator = document.getElementById('statusIndicator');
+        const statusText = document.getElementById('statusText');
+        const blockCountElement = document.getElementById('blockCount');
+        const resultCountElement = document.getElementById('resultCount');
+        const lastAttemptElement = document.getElementById('lastAttempt');
+        const toggleBtn = document.getElementById('toggleBtn');
+        const testBtn = document.getElementById('testBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const testContent = document.getElementById('testContent');
+        const alertBox = document.getElementById('alertBox');
+        const overlay = document.getElementById('overlay');
+        const closeAlert = document.getElementById('closeAlert');
+        const alertMessage = document.getElementById('alertMessage');
+        
+        // Function to update UI based on blocker status
+        function updateUI() {
+            if (isBlockerActive) {
+                statusIndicator.textContent = "Right-Click Protection: ACTIVE";
+                statusIndicator.style.backgroundColor = "#2ecc71";
+                statusText.textContent = "Active and Working";
+                statusText.className = "result-value success";
+                toggleBtn.textContent = "Turn Blocker OFF";
+                toggleBtn.style.backgroundColor = "#e74c3c";
+            } else {
+                statusIndicator.textContent = "Right-Click Protection: INACTIVE";
+                statusIndicator.style.backgroundColor = "#e74c3c";
+                statusText.textContent = "Inactive - Right-click will work";
+                statusText.className = "result-value failure";
+                toggleBtn.textContent = "Turn Blocker ON";
+                toggleBtn.style.backgroundColor = "#2ecc71";
+            }
+            
+            blockCountElement.textContent = blockCounter;
+            resultCountElement.textContent = blockCounter;
+            
+            if (lastAttemptTime) {
+                lastAttemptElement.textContent = lastAttemptTime.toLocaleTimeString();
+            }
+        }
+        
+        // Function to show custom alert
+        function showAlert() {
+            // Update alert message with current count
+            alertMessage.textContent = `Right-click has been blocked! This is attempt #${blockCounter + 1}.`;
+            
+            // Show overlay and alert box
+            overlay.style.display = "block";
+            alertBox.style.display = "block";
+            
+            // Increment counter
+            blockCounter++;
+            lastAttemptTime = new Date();
+            
+            // Update UI
+            updateUI();
+        }
+        
+        // Function to hide custom alert
+        function hideAlert() {
+            overlay.style.display = "none";
+            alertBox.style.display = "none";
+        }
+        
+        // Main right-click blocker function
+        function blockRightClick(event) {
+            if (!isBlockerActive) return;
+            
+            event.preventDefault();
+            showAlert();
+        }
+        
+        // Add event listener for context menu (right-click)
+        document.addEventListener('contextmenu', blockRightClick);
+        
+        // Also prevent keyboard context menu shortcut (Shift+F10 or Context Menu key)
+        document.addEventListener('keydown', function(event) {
+            if (isBlockerActive && (event.key === "F10" && event.shiftKey) || event.key === "ContextMenu") {
+                event.preventDefault();
+                showAlert();
+            }
+        });
+        
+        // Toggle blocker on/off
+        toggleBtn.addEventListener('click', function() {
+            isBlockerActive = !isBlockerActive;
+            updateUI();
+        });
+        
+        // Test left-click for comparison
+        testBtn.addEventListener('click', function() {
+            alert("Left-click works normally. Try right-clicking to see the difference!");
+        });
+        
+        // Reset counter
+        resetBtn.addEventListener('click', function() {
+            blockCounter = 0;
+            lastAttemptTime = null;
+            updateUI();
+            alert("Counter has been reset to 0. Try right-clicking again!");
+        });
+        
+        // Close alert box
+        closeAlert.addEventListener('click', hideAlert);
+        
+        // Close alert when clicking on overlay
+        overlay.addEventListener('click', hideAlert);
+        
+        // Close alert with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && alertBox.style.display === "block") {
+                hideAlert();
+            }
+        });
+        
+        // Initialize UI
+        updateUI();
+        
+        // Add some extra protection against DevTools (note: this is not foolproof)
+        document.addEventListener('keydown', function(event) {
+            // Prevent F12 key
+            if (event.key === "F12") {
+                event.preventDefault();
+                alert("Developer Tools have been disabled on this page.");
+            }
+            
+            // Prevent Ctrl+Shift+I (or Cmd+Opt+I on Mac)
+            if ((event.ctrlKey && event.shiftKey && event.key === "I") || 
+                (event.metaKey && event.altKey && event.key === "i")) {
+                event.preventDefault();
+                alert("Developer Tools have been disabled on this page.");
+            }
+            
+            // Prevent Ctrl+Shift+J (or Cmd+Opt+J on Mac)
+            if ((event.ctrlKey && event.shiftKey && event.key === "J") || 
+                (event.metaKey && event.altKey && event.key === "j")) {
+                event.preventDefault();
+                alert("Developer Tools have been disabled on this page.");
+            }
+            
+            // Prevent Ctrl+U (or Cmd+Opt+U on Mac) for view source
+            if ((event.ctrlKey && event.key === "u") || 
+                (event.metaKey && event.altKey && event.key === "u")) {
+                event.preventDefault();
+                alert("View source has been disabled on this page.");
+            }
+        });
+    </script>
+</body>
+</html>

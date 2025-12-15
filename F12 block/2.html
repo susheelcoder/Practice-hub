@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Silent Blocker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .status-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .status-active {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .test-area {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin: 25px 0;
+            border-radius: 10px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+        }
+        
+        .test-area h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+        
+        .instruction {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .feature i {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        button {
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+        }
+        
+        #toggleBtn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="icon">🔒</span> Complete Silent Blocker</h1>
+        
+        <div class="status-card">
+            <div class="status-active" id="statusText">ALL PROTECTIONS ACTIVE</div>
+            <p>Right Click • F12 • DevTools • Copy • View Source</p>
+        </div>
+        
+        <div class="test-area">
+            <h3>🚫 TESTING AREA - Try These:</h3>
+            
+            <div class="instruction">
+                <p><strong>1. Right-Click Test:</strong> Try to right-click anywhere on this page</p>
+            </div>
+            
+            <div class="instruction">
+                <p><strong>2. F12 / DevTools Test:</strong> Press F12 or Ctrl+Shift+I</p>
+            </div>
+            
+            <div class="instruction">
+                <p><strong>3. Copy Text Test:</strong> Select text and try Ctrl+C</p>
+            </div>
+            
+            <div class="instruction">
+                <p><strong>4. View Source Test:</strong> Try Ctrl+U to view page source</p>
+            </div>
+            
+            <p style="text-align: center; margin-top: 20px; font-style: italic;">
+                <strong>NOTE:</strong> No warnings or alerts will appear. Everything is silently blocked.
+            </p>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <span class="icon">🚫</span>
+                <h4>Right Click Blocked</h4>
+                <p>Context menu completely disabled</p>
+            </div>
+            
+            <div class="feature">
+                <span class="icon">⌨️</span>
+                <h4>F12 Disabled</h4>
+                <p>Developer Tools shortcut blocked</p>
+            </div>
+            
+            <div class="feature">
+                <span class="icon">📋</span>
+                <h4>Copy Protection</h4>
+                <p>Ctrl+C and text copying prevented</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="toggleBtn" onclick="toggleProtection()">Disable All Protection</button>
+            <button onclick="refreshPage()">Refresh Page</button>
+        </div>
+        
+        <footer>
+            <p>Complete Silent Protection System | No alerts or warnings shown</p>
+        </footer>
+    </div>
+
+    <!-- <script src="blocker.js"></script> -->
+</body>
+</html>
+
+
+
+<script>
+   // Complete Silent Protection System
+let protectionActive = true;
+let attempts = 0;
+
+// Function to update UI status
+function updateStatus() {
+    const statusText = document.getElementById('statusText');
+    const toggleBtn = document.getElementById('toggleBtn');
+    
+    if (protectionActive) {
+        statusText.textContent = "ALL PROTECTIONS ACTIVE";
+        statusText.style.color = "#4CAF50";
+        toggleBtn.textContent = "Disable All Protection";
+        toggleBtn.style.background = "linear-gradient(45deg, #4CAF50, #45a049)";
+    } else {
+        statusText.textContent = "ALL PROTECTIONS DISABLED";
+        statusText.style.color = "#FF5722";
+        toggleBtn.textContent = "Enable All Protection";
+        toggleBtn.style.background = "linear-gradient(45deg, #FF416C, #FF4B2B)";
+    }
+}
+
+// Function to toggle protection
+function toggleProtection() {
+    protectionActive = !protectionActive;
+    updateStatus();
+}
+
+// Function to refresh page
+function refreshPage() {
+    location.reload();
+}
+
+// ================= MAIN BLOCKING FUNCTIONS =================
+
+// 1. BLOCK RIGHT CLICK (Context Menu)
+document.addEventListener('contextmenu', function(e) {
+    if (protectionActive) {
+        e.preventDefault();
+        attempts++;
+        return false;
+    }
+});
+
+// 2. BLOCK F12 AND DEVELOPER TOOLS
+document.addEventListener('keydown', function(e) {
+    if (!protectionActive) return;
+    
+    // Block F12
+    if (e.key === 'F12') {
+        e.preventDefault();
+        attempts++;
+        return false;
+    }
+    
+    // Block Ctrl+Shift+I (Developer Tools)
+    if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+        e.preventDefault();
+        attempts++;
+        return false;
+    }
+    
+    // Block Ctrl+Shift+J (Console)
+    if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+        e.preventDefault();
+        attempts++;
+        return false;
+    }
+    
+    // Block Ctrl+Shift+C (Inspect Element)
+    if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        attempts++;
+        return false;
+    }
+    
+    // Block Ctrl+U (View Source)
+    if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+        attempts++;
+        return false;
+    }
+    
+    // Block Ctrl+S (Save Page)
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        attempts++;
+        return false;
+    }
+    
+    // Block Ctrl+P (Print)
+    if (e.ctrlKey && e.key === 'p') {
+        e.preventDefault();
+        attempts++;
+        return false;
+    }
+});
+
+// 3. BLOCK COPY (Ctrl+C)
+document.addEventListener('keydown', function(e) {
+    if (protectionActive) {
+        // Block Ctrl+C
+        if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+            e.preventDefault();
+            attempts++;
+            return false;
+        }
+        
+        // Block Ctrl+A (Select All)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
+            e.preventDefault();
+            attempts++;
+            return false;
+        }
+        
+        // Block Ctrl+X (Cut)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'x') {
+            e.preventDefault();
+            attempts++;
+            return false;
+        }
+    }
+});
+
+// 4. BLOCK TEXT SELECTION (Optional)
+document.addEventListener('selectstart', function(e) {
+    if (protectionActive) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// 5. BLOCK DRAG AND DROP
+document.addEventListener('dragstart', function(e) {
+    if (protectionActive) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// 6. BLOCK PRINT SCREEN KEY
+document.addEventListener('keydown', function(e) {
+    if (protectionActive) {
+        // Block Print Screen
+        if (e.key === 'PrintScreen') {
+            e.preventDefault();
+            attempts++;
+            return false;
+        }
+    }
+});
+
+// 7. DETECT AND BLOCK DEVTOOLS OPENING
+(function() {
+    if (!protectionActive) return;
+    
+    // Method 1: Detect devtools by checking console
+    const checkDevTools = function() {
+        const threshold = 160; // Width difference when devtools is open
+        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        
+        if (widthThreshold || heightThreshold) {
+            // DevTools detected - try to close it
+            attempts++;
+            window.close(); // Try to close window
+            document.body.innerHTML = ''; // Clear page
+            window.location.href = 'about:blank'; // Redirect to blank page
+        }
+    };
+    
+    // Check periodically
+    setInterval(checkDevTools, 1000);
+    
+    // Method 2: Override console functions
+    if (typeof console !== 'undefined') {
+        console.log = function() {};
+        console.warn = function() {};
+        console.error = function() {};
+        console.info = function() {};
+        console.debug = function() {};
+    }
+})();
+
+// 8. PREVENT INSPECT ELEMENT MENU
+document.addEventListener('keydown', function(e) {
+    if (protectionActive) {
+        // Block right-click menu key
+        if (e.key === 'ContextMenu') {
+            e.preventDefault();
+            attempts++;
+            return false;
+        }
+    }
+});
+
+// 9. BLOCK BACK/FORWARD BROWSER BUTTONS
+window.history.pushState(null, null, window.location.href);
+window.addEventListener('popstate', function() {
+    if (protectionActive) {
+        window.history.pushState(null, null, window.location.href);
+    }
+});
+
+// 10. BLOCK PAGE RELOAD SHORTCUTS
+document.addEventListener('keydown', function(e) {
+    if (protectionActive) {
+        // Block Ctrl+R and F5
+        if ((e.ctrlKey && e.key === 'r') || e.key === 'F5') {
+            e.preventDefault();
+            attempts++;
+            return false;
+        }
+        
+        // Block Ctrl+F5 (Hard Reload)
+        if (e.ctrlKey && e.key === 'F5') {
+            e.preventDefault();
+            attempts++;
+            return false;
+        }
+    }
+});
+
+// Initialize
+updateStatus();
+
+// Log attempts (for debugging only - can be removed)
+setInterval(() => {
+    if (attempts > 0 && protectionActive) {
+        console.log(`Silent blocks: ${attempts}`);
+    }
+}, 5000);
+</script>
