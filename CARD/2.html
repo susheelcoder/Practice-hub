@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hover Slide Cards</title>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#eef1f6;
+}
+
+section{
+    padding:40px 20px;
+    max-width:1200px;
+    margin:auto;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+/* ===== Grid ===== */
+.cards{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap:20px;
+}
+
+/* ===== Card ===== */
+.card{
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    overflow:hidden;
+    height:300px;
+    position:relative;
+    transition:0.4s;
+    display:flex;
+}
+
+/* ===== Image ===== */
+.card-img{
+    width:100%;
+    transition:0.4s;
+}
+
+.card-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* ===== Content ===== */
+.card-content{
+    position:absolute;
+    inset:0;
+    padding:20px;
+    opacity:0;
+    transition:0.4s;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+/* ===== Social Icons ===== */
+.social{
+    margin-top:15px;
+}
+
+.social a{
+    color:#555;
+    margin-right:12px;
+    font-size:18px;
+    transition:0.3s;
+}
+
+.social a:hover{
+    color:#0077ff;
+}
+
+/* ===== Hover Effects ===== */
+.card:hover{
+    padding-left:110px;
+}
+
+.card:hover .card-img{
+    width:0px;
+}
+
+.card:hover .card-content{
+    opacity:1;
+}
+
+</style>
+</head>
+<body>
+
+<section>
+<h2>Our Team</h2>
+
+<div class="cards">
+
+    <!-- Card 1 -->
+    <div class="card">
+        <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12" alt="">
+        </div>
+        <div class="card-content">
+            <h3>Web Designer</h3>
+            <p>Expert in modern UI/UX design and responsive layouts.</p>
+
+            <div class="social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+        <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2" alt="">
+        </div>
+        <div class="card-content">
+            <h3>Developer</h3>
+            <p>Clean, scalable and high-performance web applications.</p>
+
+            <div class="social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+        <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e" alt="">
+        </div>
+        <div class="card-content">
+            <h3>SEO Expert</h3>
+            <p>Boosting ranking and visibility on search engines.</p>
+
+            <div class="social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+        <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1" alt="">
+        </div>
+        <div class="card-content">
+            <h3>Support Manager</h3>
+            <p>24/7 customer support and maintenance services.</p>
+
+            <div class="social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+</section>
+
+</body>
+</html>

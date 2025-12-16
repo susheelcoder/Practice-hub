@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hover Info Cards</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#f2f4f8;
+}
+
+/* ===== Section ===== */
+.card-section{
+    padding:40px 20px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.card-section h2{
+    text-align:center;
+    margin-bottom:30px;
+    font-size:28px;
+}
+
+/* ===== Card Grid ===== */
+.card-container{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap:20px;
+}
+
+/* ===== Card ===== */
+.card{
+    background:#fff;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    transition:0.4s;
+    cursor:pointer;
+}
+
+/* Image */
+.card-img{
+    height:200px;
+    overflow:hidden;
+    transition:0.4s;
+}
+
+.card-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.4s;
+}
+
+/* Content */
+.card-content{
+    padding:15px;
+}
+
+.card-content h3{
+    margin:0 0 8px;
+    font-size:20px;
+}
+
+.card-content p{
+    font-size:14px;
+    color:#555;
+}
+
+/* Full Info (Hidden) */
+.card-full-info{
+    max-height:0;
+    overflow:hidden;
+    transition:0.4s;
+    padding:0 15px;
+    font-size:14px;
+    color:#333;
+}
+
+/* ===== Hover Effect ===== */
+.card:hover .card-img{
+    height:120px; /* image chhoti */
+}
+
+.card:hover .card-full-info{
+    max-height:150px;
+    padding:15px;
+}
+</style>
+</head>
+
+<body>
+
+<section class="card-section">
+    <h2>Our Services</h2>
+
+    <div class="card-container">
+
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" alt="">
+            </div>
+            <div class="card-content">
+                <h3>Web Design</h3>
+                <p>Modern & responsive UI</p>
+            </div>
+            <div class="card-full-info">
+                We create fully responsive, modern, and user-friendly website designs using latest UI/UX principles.
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="">
+            </div>
+            <div class="card-content">
+                <h3>Development</h3>
+                <p>Clean & scalable code</p>
+            </div>
+            <div class="card-full-info">
+                High-quality frontend and backend development using HTML, CSS, JavaScript, and modern frameworks.
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d" alt="">
+            </div>
+            <div class="card-content">
+                <h3>SEO</h3>
+                <p>Rank higher on Google</p>
+            </div>
+            <div class="card-full-info">
+                SEO-optimized websites that help improve visibility, traffic, and ranking on search engines.
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984" alt="">
+            </div>
+            <div class="card-content">
+                <h3>Support</h3>
+                <p>24/7 technical help</p>
+            </div>
+            <div class="card-full-info">
+                Dedicated support and maintenance to ensure your website runs smoothly without any issues.
+            </div>
+        </div>
+
+    </div>
+</section>
+
+</body>
+</html>
