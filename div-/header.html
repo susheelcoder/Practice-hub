@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header with Search Overlay</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding-top: 70px;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: rgb(103, 101, 101);
+            color: aliceblue;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9;
+        }
+
+        .div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .div1 {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+        }
+
+        .div1 a {
+            color: antiquewhite;
+            font-size: x-large;
+            text-decoration: none;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .div1 div {
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        nav ul li {
+            cursor: pointer;
+        }
+
+        details ol {
+            color: #eae7e7;
+            padding: 10px 0;
+            margin-top: -18px;
+        }
+
+        ol li {
+            font-size: xx-small;
+            margin: 5px;
+        }
+
+        details div {
+            position: absolute;
+            background: #000;
+            padding: 17px 15px 11px 16px;
+            border-radius: 0 6px;
+            margin-top: 17px;
+        }
+
+        .Markets {
+            position: absolute;
+            margin-left: 82px;
+            background: #000;
+            padding: 17px 15px 11px 16px;
+            border-radius: 0 6px;
+            margin-top: -13px;
+        }
+
+        /* Search icon */
+        .svg {
+            height: 32px;
+            cursor: pointer;
+            fill: white;
+        }
+
+        /* Search overlay */
+        .surchbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background-color: #f00d0d;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .surchbox.active {
+            display: flex;
+        }
+
+        .search-input {
+            position: relative;
+            flex: 1;
+        }
+
+        .search-input input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #555;
+            pointer-events: none;
+        }
+
+        .close {
+            font-size: 22px;
+            margin-left: 15px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* Menu button */
+        .menu-btn {
+            width: 30px;
+            height: 22px;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .menu-btn span {
+            height: 3px;
+            width: 100%;
+            background: white;
+            border-radius: 2px;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            width: 200px;
+            background: #333;
+            color: white;
+            padding: 15px;
+            margin-top: 10px;
+            position: fixed;
+            left: 0;
+        }
+
+        .mobile-menu li {
+            padding: 10px 0;
+        }
+
+        .li {
+            list-style: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        /* Mobile only */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .menu-btn {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="div">
+            <div class="div1">
+                <a href="/">Brand name</a>
+
+                <div class="menu-btn" onclick="toggleMenu()">
+                    <span>-</span>
+                    <span>-</span>
+                    <span>-</span>
+                </div>
+            </div>
+
+            <nav>
+                <ul>
+                    <li>Home</li>
+
+                    <li>
+                        <details>
+                            <summary>Place</summary>
+                            <div>
+                                <ol>
+                                    <li>Ramni Deep Dham</li>
+                                    <li>Market</li>
+                                    <li>Market</li>
+                                    <li>
+                                        <details>
+                                            <summary>Market</summary>
+                                            <div class="Markets">
+                                                <ol>
+                                                    <li>Market</li>
+                                                    <li>Market</li>
+                                                </ol>
+                                            </div>
+                                        </details>
+                                    </li>
+                                    <li>Market</li>
+                                </ol>
+                            </div>
+                        </details>
+                    </li>
+
+                    <li>Information</li>
+                    <li>About</li>
+                    <li>Project</li>
+                </ul>
+
+                <!-- Search Icon -->
+                <svg onclick="openBox()" class="svg" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5
+                    16 5.91 13.09 3 9.5 3S3 5.91 3 9.5
+                    5.91 16 9.5 16c1.61 0 3.09-.59
+                    4.23-1.57l.27.28v.79l5
+                    4.99L20.49 19l-4.99-5z" />
+                </svg>
+            </nav>
+        </div>
+
+
+        <!-- Search Box -->
+        <div class="surchbox" id="overlayBox">
+            <div class="search-input">
+                <input type="text" placeholder="Search here...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <span class="close" onclick="closeBox()">❌</span>
+        </div>
+
+
+        <!-- Mobile Menu -->
+        <div>
+            <ul class="mobile-menu" id="mobileMenu">
+                <li class="li">Home</li>
+                <li class="li">Place</li>
+                <li class="li">About</li>
+                <li class="li">Project</li>
+                <li class="li">Ramni Deep Dham</li>
+
+                <li class="li">
+                    <details>
+                        <summary>Market</summary>
+                        <div class="Markets">
+                            <ol>
+                                <li>Market</li>
+                                <li>Market</li>
+                                <li>Market</li>
+                                <li>Market</li>
+                            </ol>
+                        </div>
+                    </details>
+                </li>
+                <li class="li">Market</li>
+            </ul>
+        </div>
+
+    </header>
+
+    <!-- ===
+     main 
+     === -->
+
+    <main>
+        <div>
+
+        </div>
+    </main>
+
+
+</body>
+
+</html>
+
+<script>
+    function openBox() {
+        document.getElementById("overlayBox").classList.add("active");
+    }
+
+    function closeBox() {
+        document.getElementById("overlayBox").classList.remove("active");
+    }
+
+    function toggleMenu() {
+        document.getElementById("mobileMenu").classList.toggle("active");
+    }
+</script>
