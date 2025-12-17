@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,19 +12,19 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background-color: #f5f7fa;
             color: #333;
             line-height: 1.6;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         header {
             text-align: center;
             margin-bottom: 40px;
@@ -32,19 +33,19 @@
             color: white;
             border-radius: 15px;
         }
-        
+
         h1 {
             font-size: 2.8rem;
             margin-bottom: 10px;
         }
-        
+
         .description {
             font-size: 1.2rem;
             opacity: 0.9;
             max-width: 800px;
             margin: 0 auto 20px;
         }
-        
+
         .open-search-btn {
             background-color: white;
             color: #4a6ee0;
@@ -57,13 +58,13 @@
             font-weight: 600;
             margin-top: 20px;
         }
-        
+
         .open-search-btn:hover {
             background-color: #f0f5ff;
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* Search Box Styles */
         #overlayBox {
             display: none;
@@ -79,12 +80,17 @@
             padding-top: 100px;
             animation: fadeIn 0.3s ease;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
-        
+
         .surchbox {
             width: 90%;
             max-width: 700px;
@@ -94,18 +100,25 @@
             overflow: hidden;
             animation: slideDown 0.4s ease;
         }
-        
+
         @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
-        
+
         .search-input {
             position: relative;
             padding: 25px;
             border-bottom: 1px solid #eee;
         }
-        
+
         .search-input input {
             width: 100%;
             padding: 18px 25px;
@@ -116,12 +129,12 @@
             outline: none;
             transition: all 0.3s;
         }
-        
+
         .search-input input:focus {
             border-color: #4a6ee0;
             box-shadow: 0 0 0 3px rgba(74, 110, 224, 0.2);
         }
-        
+
         .search-icon {
             position: absolute;
             left: 45px;
@@ -130,7 +143,7 @@
             font-size: 1.4rem;
             color: #777;
         }
-        
+
         .close {
             position: absolute;
             top: 20px;
@@ -141,55 +154,55 @@
             transition: transform 0.2s;
             z-index: 1001;
         }
-        
+
         .close:hover {
             transform: scale(1.2);
         }
-        
+
         .search-results-container {
             max-height: 400px;
             overflow-y: auto;
             padding: 10px 0;
         }
-        
+
         .result-item {
             padding: 18px 25px;
             border-bottom: 1px solid #f0f0f0;
             cursor: pointer;
             transition: background-color 0.2s;
         }
-        
+
         .result-item:hover {
             background-color: #f8f9ff;
         }
-        
+
         .result-title {
             font-weight: 600;
             font-size: 1.1rem;
             color: #333;
             margin-bottom: 8px;
         }
-        
+
         .result-preview {
             color: #666;
             font-size: 0.95rem;
             line-height: 1.5;
         }
-        
+
         .highlight {
             background-color: #ffeb3b;
             padding: 0 2px;
             font-weight: 600;
             border-radius: 3px;
         }
-        
+
         .no-results {
             padding: 30px 25px;
             text-align: center;
             color: #888;
             font-style: italic;
         }
-        
+
         /* Content Sections */
         .content-section {
             background-color: white;
@@ -199,21 +212,21 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             scroll-margin-top: 20px;
         }
-        
+
         .section-title {
             color: #4a6ee0;
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid #f0f0f0;
         }
-        
+
         .content-highlight {
             background-color: rgba(255, 235, 59, 0.5);
             padding: 2px 0;
             border-radius: 3px;
             transition: background-color 1s;
         }
-        
+
         footer {
             text-align: center;
             margin-top: 50px;
@@ -221,74 +234,98 @@
             color: #666;
             border-top: 1px solid #eee;
         }
-        
+
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             .surchbox {
                 width: 95%;
                 margin-top: 60px;
             }
-            
+
             h1 {
                 font-size: 2.2rem;
             }
-            
+
             .content-section {
                 padding: 20px;
             }
-            
+
             #overlayBox {
                 padding-top: 80px;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <h1>Search Box with Navigation</h1>
-            <p class="description">Click the button below to open the search box. Type to find content on this page and click any result to navigate directly to it.</p>
+            <p class="description">Click the button below to open the search box. Type to find content on this page and
+                click any result to navigate directly to it.</p>
             <button class="open-search-btn" onclick="openBox()">🔍 Open Search Box</button>
         </header>
-        
+
         <main>
             <div class="content-section" id="web-development">
                 <h2 class="section-title">Web Development</h2>
-                <p>Web development is the work involved in developing a website for the Internet or an intranet. Web development can range from developing a simple single static page of plain text to complex web applications, electronic businesses, and social network services.</p>
-                <p>The term web development usually refers to the main non-design aspects of building websites: writing markup and coding. Web development may use content management systems to make content changes easier and available with basic technical skills.</p>
+                <p>Web development is the work involved in developing a website for the Internet or an intranet. Web
+                    development can range from developing a simple single static page of plain text to complex web
+                    applications, electronic businesses, and social network services.</p>
+                <p>The term web development usually refers to the main non-design aspects of building websites: writing
+                    markup and coding. Web development may use content management systems to make content changes easier
+                    and available with basic technical skills.</p>
             </div>
-            
+
             <div class="content-section" id="frontend">
                 <h2 class="section-title">Frontend Development</h2>
-                <p>Front-end web development is the practice of converting data to a graphical interface, through the use of HTML, CSS, and JavaScript, so that users can view and interact with that data.</p>
-                <p>HTML provides the basic structure of sites, which is enhanced and modified by other technologies like CSS and JavaScript. CSS is used to control presentation, formatting, and layout. JavaScript is used to control the behavior of different elements.</p>
+                <p>Front-end web development is the practice of converting data to a graphical interface, through the
+                    use of HTML, CSS, and JavaScript, so that users can view and interact with that data.</p>
+                <p>HTML provides the basic structure of sites, which is enhanced and modified by other technologies like
+                    CSS and JavaScript. CSS is used to control presentation, formatting, and layout. JavaScript is used
+                    to control the behavior of different elements.</p>
             </div>
-            
+
             <div class="content-section" id="backend">
                 <h2 class="section-title">Backend Development</h2>
-                <p>Back-end development refers to the server-side of development where you are primarily focused on how the site works. This type of web development usually consists of three parts: a server, an application, and a database.</p>
-                <p>Code written by back-end developers is what communicates the database information to the browser. Back-end developers are responsible for managing the interchange of data between the server and the users.</p>
+                <p>Back-end development refers to the server-side of development where you are primarily focused on how
+                    the site works. This type of web development usually consists of three parts: a server, an
+                    application, and a database.</p>
+                <p>Code written by back-end developers is what communicates the database information to the browser.
+                    Back-end developers are responsible for managing the interchange of data between the server and the
+                    users.</p>
             </div>
-            
+
             <div class="content-section" id="javascript">
                 <h2 class="section-title">JavaScript Programming</h2>
-                <p>JavaScript is a scripting or programming language that allows you to implement complex features on web pages. It is the third layer of the layer cake of standard web technologies, two of which (HTML and CSS) we have covered in much more detail in other parts of the Learning Area.</p>
-                <p>JavaScript is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions. While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js, Apache CouchDB and Adobe Acrobat.</p>
+                <p>JavaScript is a scripting or programming language that allows you to implement complex features on
+                    web pages. It is the third layer of the layer cake of standard web technologies, two of which (HTML
+                    and CSS) we have covered in much more detail in other parts of the Learning Area.</p>
+                <p>JavaScript is a lightweight, interpreted, or just-in-time compiled programming language with
+                    first-class functions. While it is most well-known as the scripting language for Web pages, many
+                    non-browser environments also use it, such as Node.js, Apache CouchDB and Adobe Acrobat.</p>
             </div>
-            
+
             <div class="content-section" id="responsive">
                 <h2 class="section-title">Responsive Web Design</h2>
-                <p>Responsive web design is about creating web pages that look good on all devices. A responsive web design will automatically adjust for different screen sizes and viewports.</p>
-                <p>Responsive web design uses only HTML and CSS. Responsive web design is not a program or a JavaScript. Designing For The Best Experience For All Users. Web pages can be viewed using many different devices: desktops, tablets, and phones.</p>
+                <p>Responsive web design is about creating web pages that look good on all devices. A responsive web
+                    design will automatically adjust for different screen sizes and viewports.</p>
+                <p>Responsive web design uses only HTML and CSS. Responsive web design is not a program or a JavaScript.
+                    Designing For The Best Experience For All Users. Web pages can be viewed using many different
+                    devices: desktops, tablets, and phones.</p>
             </div>
-            
+
             <div class="content-section" id="seo">
                 <h2 class="section-title">Search Engine Optimization</h2>
-                <p>Search engine optimization is the process of improving the quality and quantity of website traffic to a website or a web page from search engines. SEO targets unpaid traffic rather than direct traffic or paid traffic.</p>
-                <p>SEO is the process of optimizing your online content so that a search engine likes to show it as a top result for searches of a certain keyword. SEO strategy is the process of organizing a website's content by topic to improve the likelihood of appearing in search results.</p>
+                <p>Search engine optimization is the process of improving the quality and quantity of website traffic to
+                    a website or a web page from search engines. SEO targets unpaid traffic rather than direct traffic
+                    or paid traffic.</p>
+                <p>SEO is the process of optimizing your online content so that a search engine likes to show it as a
+                    top result for searches of a certain keyword. SEO strategy is the process of organizing a website's
+                    content by topic to improve the likelihood of appearing in search results.</p>
             </div>
         </main>
-        
+
         <footer>
             <p>Search Box Demo - Click on any search result to navigate to that section</p>
         </footer>
@@ -305,258 +342,7 @@
             <!-- Search results will appear here -->
         </div>
     </div>
-
-    <script>
-        // DOM Elements
-        const overlayBox = document.getElementById('overlayBox');
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
-        
-        // Sample content to search through
-        const pageContent = [
-            {
-                id: 'web-development',
-                title: 'Web Development',
-                content: 'Web development is the work involved in developing a website for the Internet or an intranet. Web development can range from developing a simple single static page of plain text to complex web applications, electronic businesses, and social network services.'
-            },
-            {
-                id: 'frontend',
-                title: 'Frontend Development',
-                content: 'Front-end web development is the practice of converting data to a graphical interface, through the use of HTML, CSS, and JavaScript, so that users can view and interact with that data. HTML provides the basic structure of sites, which is enhanced and modified by other technologies like CSS and JavaScript.'
-            },
-            {
-                id: 'backend',
-                title: 'Backend Development',
-                content: 'Back-end development refers to the server-side of development where you are primarily focused on how the site works. This type of web development usually consists of three parts: a server, an application, and a database.'
-            },
-            {
-                id: 'javascript',
-                title: 'JavaScript Programming',
-                content: 'JavaScript is a scripting or programming language that allows you to implement complex features on web pages. It is the third layer of the layer cake of standard web technologies, two of which (HTML and CSS) we have covered in much more detail in other parts of the Learning Area.'
-            },
-            {
-                id: 'responsive',
-                title: 'Responsive Web Design',
-                content: 'Responsive web design is about creating web pages that look good on all devices. A responsive web design will automatically adjust for different screen sizes and viewports. Responsive web design uses only HTML and CSS.'
-            },
-            {
-                id: 'seo',
-                title: 'Search Engine Optimization',
-                content: 'Search engine optimization is the process of improving the quality and quantity of website traffic to a website or a web page from search engines. SEO targets unpaid traffic rather than direct traffic or paid traffic.'
-            }
-        ];
-        
-        // Open search box
-        function openBox() {
-            overlayBox.style.display = 'flex';
-            searchInput.focus();
-            searchInput.value = '';
-            searchResults.innerHTML = '<div class="no-results">Type to start searching...</div>';
-            
-            // Add keyboard event listener for ESC key
-            document.addEventListener('keydown', handleKeyPress);
-        }
-        
-        // Close search box
-        function closeBox() {
-            overlayBox.style.display = 'none';
-            document.removeEventListener('keydown', handleKeyPress);
-            removeHighlights();
-        }
-        
-        // Handle keyboard events
-        function handleKeyPress(event) {
-            // Close on ESC key
-            if (event.key === 'Escape') {
-                closeBox();
-            }
-            
-            // Navigate results with arrow keys
-            if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-                navigateResults(event.key);
-                event.preventDefault();
-            }
-            
-            // Select result with Enter key
-            if (event.key === 'Enter') {
-                const activeResult = document.querySelector('.result-item.active');
-                if (activeResult) {
-                    activeResult.click();
-                }
-            }
-        }
-        
-        // Navigate search results with arrow keys
-        function navigateResults(direction) {
-            const results = document.querySelectorAll('.result-item');
-            if (results.length === 0) return;
-            
-            let activeIndex = -1;
-            results.forEach((result, index) => {
-                if (result.classList.contains('active')) {
-                    activeIndex = index;
-                    result.classList.remove('active');
-                }
-            });
-            
-            if (direction === 'ArrowDown') {
-                activeIndex = (activeIndex + 1) % results.length;
-            } else if (direction === 'ArrowUp') {
-                activeIndex = (activeIndex - 1 + results.length) % results.length;
-            }
-            
-            results[activeIndex].classList.add('active');
-            results[activeIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        
-        // Search function - triggered on input
-        searchInput.addEventListener('input', function() {
-            const query = this.value.trim().toLowerCase();
-            
-            if (query.length === 0) {
-                searchResults.innerHTML = '<div class="no-results">Type to start searching...</div>';
-                removeHighlights();
-                return;
-            }
-            
-            const results = performSearch(query);
-            displayResults(results, query);
-        });
-        
-        // Perform search through content
-        function performSearch(query) {
-            const results = [];
-            
-            pageContent.forEach(item => {
-                const titleMatch = item.title.toLowerCase().includes(query);
-                const contentMatch = item.content.toLowerCase().includes(query);
-                
-                if (titleMatch || contentMatch) {
-                    results.push({
-                        id: item.id,
-                        title: item.title,
-                        content: item.content,
-                        relevance: titleMatch ? 2 : 1 // Give higher relevance to title matches
-                    });
-                }
-            });
-            
-            // Sort by relevance
-            results.sort((a, b) => b.relevance - a.relevance);
-            
-            return results;
-        }
-        
-        // Display search results
-        function displayResults(results, query) {
-            if (results.length === 0) {
-                searchResults.innerHTML = '<div class="no-results">No results found for "' + query + '"</div>';
-                removeHighlights();
-                return;
-            }
-            
-            let resultsHTML = '';
-            
-            results.forEach(result => {
-                // Highlight matching text in preview
-                const preview = highlightText(result.content, query);
-                const title = highlightText(result.title, query);
-                
-                resultsHTML += `
-                    <div class="result-item" onclick="navigateToSection('${result.id}', '${query}')">
-                        <div class="result-title">${title}</div>
-                        <div class="result-preview">${preview}</div>
-                    </div>
-                `;
-            });
-            
-            searchResults.innerHTML = resultsHTML;
-        }
-        
-        // Highlight matching text in content
-        function highlightText(text, query) {
-            if (!query) return text;
-            
-            const regex = new RegExp(`(${query})`, 'gi');
-            return text.replace(regex, '<span class="highlight">$1</span>');
-        }
-        
-        // Navigate to section and highlight text
-        function navigateToSection(sectionId, query) {
-            // Close search box
-            closeBox();
-            
-            // Find the section element
-            const section = document.getElementById(sectionId);
-            if (!section) return;
-            
-            // Scroll to the section
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            
-            // Highlight the query in the section content
-            highlightSectionContent(section, query);
-        }
-        
-        // Highlight search terms in the section content
-        function highlightSectionContent(section, query) {
-            // Remove previous highlights
-            removeHighlights();
-            
-            if (!query) return;
-            
-            // Get all text nodes in the section
-            const textNodes = getTextNodesIn(section);
-            
-            textNodes.forEach(node => {
-                const nodeText = node.nodeValue;
-                const regex = new RegExp(`(${query})`, 'gi');
-                
-                if (regex.test(nodeText)) {
-                    const newHTML = nodeText.replace(regex, '<span class="content-highlight">$1</span>');
-                    const newNode = document.createElement('span');
-                    newNode.innerHTML = newHTML;
-                    node.parentNode.replaceChild(newNode, node);
-                }
-            });
-            
-            // Remove highlights after 3 seconds
-            setTimeout(removeHighlights, 3000);
-        }
-        
-        // Get all text nodes within an element
-        function getTextNodesIn(element) {
-            const textNodes = [];
-            
-            function findTextNodes(node) {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    textNodes.push(node);
-                } else {
-                    for (let i = 0; i < node.childNodes.length; i++) {
-                        findTextNodes(node.childNodes[i]);
-                    }
-                }
-            }
-            
-            findTextNodes(element);
-            return textNodes;
-        }
-        
-        // Remove all highlights from content
-        function removeHighlights() {
-            const highlights = document.querySelectorAll('.content-highlight');
-            highlights.forEach(highlight => {
-                const parent = highlight.parentNode;
-                parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
-                parent.normalize();
-            });
-        }
-        
-        // Close search box when clicking outside
-        overlayBox.addEventListener('click', function(event) {
-            if (event.target === overlayBox) {
-                closeBox();
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
+
 </html>
