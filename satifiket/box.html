@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Interface with OpenAI Integration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e6e6e6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+        
+        .api-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .card {
+            background: rgba(20, 25, 40, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            color: #64b5f6;
+        }
+        
+        .card-title i {
+            font-size: 1.2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #a3b7cc;
+            font-weight: 500;
+        }
+        
+        textarea, input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(10, 15, 30, 0.8);
+            border: 1px solid rgba(100, 181, 246, 0.3);
+            border-radius: 10px;
+            color: #e6e6e6;
+            font-size: 1rem;
+            resize: vertical;
+            transition: all 0.3s;
+        }
+        
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #64b5f6;
+            box-shadow: 0 0 0 2px rgba(100, 181, 246, 0.2);
+        }
+        
+        textarea {
+            min-height: 120px;
+            font-family: monospace;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 14px 28px;
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 219, 222, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button.clear {
+            background: linear-gradient(90deg, #FF416C, #FF4B2B);
+        }
+        
+        button.clear:hover {
+            box-shadow: 0 7px 20px rgba(255, 65, 108, 0.3);
+        }
+        
+        .output-container {
+            position: relative;
+            min-height: 200px;
+        }
+        
+        .output-content {
+            min-height: 200px;
+            padding: 20px;
+            background: rgba(10, 15, 30, 0.8);
+            border-radius: 10px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border: 1px solid rgba(100, 181, 246, 0.2);
+        }
+        
+        .loading {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 15, 30, 0.9);
+            border-radius: 10px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(100, 181, 246, 0.3);
+            border-top: 5px solid #64b5f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .message.success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            color: #a5d6a7;
+        }
+        
+        .message.error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.5);
+            color: #ef9a9a;
+        }
+        
+        .api-info {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            button {
+                min-width: 100%;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-robot"></i> OpenAI API Interface</h1>
+            <p class="subtitle">Enter your prompt and get AI-generated responses using the provided API key</p>
+            <div class="api-status">
+                <div class="status-indicator"></div>
+                <span>API Key Loaded & Ready</span>
+            </div>
+        </header>
+        
+        <main>
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-keyboard"></i>
+                    <h2>Input Parameters</h2>
+                </div>
+                
+                <div class="input-group">
+                    <label for="apiKey">API Key (Loaded)</label>
+                    <input type="text" id="apiKey" value="sk-a509a3ef3d36424988730597dcfab225" readonly>
+                    <div class="api-info">
+                        <span>API key is pre-loaded and secured</span>
+                        <span><i class="fas fa-lock"></i> Read-only</span>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="prompt">Enter Your Prompt</label>
+                    <textarea id="prompt" placeholder="Type your prompt here... For example: 'Explain quantum computing in simple terms'">Explain how neural networks work in simple terms</textarea>
+                    <div class="api-info">
+                        <span>Enter your question or instruction for the AI</span>
+                        <span id="charCount">0/4000 characters</span>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button id="sendRequest">
+                        <i class="fas fa-paper-plane"></i>
+                        Send API Request
+                    </button>
+                    <button id="clearInput" class="clear">
+                        <i class="fas fa-eraser"></i>
+                        Clear Input
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-terminal"></i>
+                    <h2>API Response</h2>
+                </div>
+                
+                <div class="output-container">
+                    <div class="loading" id="loadingIndicator">
+                        <div class="spinner"></div>
+                        <p>Sending request to OpenAI API...</p>
+                    </div>
+                    
+                    <div class="output-content" id="output">
+                        Your API response will appear here. Click "Send API Request" to get started.
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button id="copyOutput">
+                        <i class="far fa-copy"></i>
+                        Copy Response
+                    </button>
+                    <button id="clearOutput" class="clear">
+                        <i class="fas fa-trash-alt"></i>
+                        Clear Output
+                    </button>
+                </div>
+            </div>
+            
+            <div class="message" id="message"></div>
+        </main>
+        
+        <footer>
+            <p>OpenAI API Interface | Secure API Key Integration | HTML, CSS & JavaScript</p>
+            <p>Note: This is a frontend demonstration. In production, API keys should be handled server-side.</p>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const apiKeyInput = document.getElementById('apiKey');
+        const promptInput = document.getElementById('prompt');
+        const charCount = document.getElementById('charCount');
+        const outputDiv = document.getElementById('output');
+        const sendRequestBtn = document.getElementById('sendRequest');
+        const clearInputBtn = document.getElementById('clearInput');
+        const clearOutputBtn = document.getElementById('clearOutput');
+        const copyOutputBtn = document.getElementById('copyOutput');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const messageDiv = document.getElementById('message');
+        
+        // Character count for prompt input
+        promptInput.addEventListener('input', function() {
+            const length = this.value.length;
+            charCount.textContent = `${length}/4000 characters`;
+            
+            if (length > 4000) {
+                charCount.style.color = '#ff6b6b';
+            } else if (length > 3500) {
+                charCount.style.color = '#ffa726';
+            } else {
+                charCount.style.color = '#888';
+            }
+        });
+        
+        // Initialize character count on page load
+        promptInput.dispatchEvent(new Event('input'));
+        
+        // Clear input button
+        clearInputBtn.addEventListener('click', function() {
+            promptInput.value = '';
+            promptInput.dispatchEvent(new Event('input'));
+            showMessage('Input cleared successfully', 'success');
+        });
+        
+        // Clear output button
+        clearOutputBtn.addEventListener('click', function() {
+            outputDiv.textContent = 'Your API response will appear here. Click "Send API Request" to get started.';
+            showMessage('Output cleared successfully', 'success');
+        });
+        
+        // Copy output button
+        copyOutputBtn.addEventListener('click', function() {
+            const textToCopy = outputDiv.textContent;
+            
+            if (textToCopy && textToCopy !== 'Your API response will appear here. Click "Send API Request" to get started.') {
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        showMessage('Response copied to clipboard!', 'success');
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy: ', err);
+                        showMessage('Failed to copy text', 'error');
+                    });
+            } else {
+                showMessage('No content to copy', 'error');
+            }
+        });
+        
+        // Send API request
+        sendRequestBtn.addEventListener('click', async function() {
+            const prompt = promptInput.value.trim();
+            const apiKey = apiKeyInput.value.trim();
+            
+            if (!prompt) {
+                showMessage('Please enter a prompt', 'error');
+                return;
+            }
+            
+            if (!apiKey) {
+                showMessage('API key is missing', 'error');
+                return;
+            }
+            
+            // Show loading indicator
+            loadingIndicator.style.display = 'flex';
+            outputDiv.textContent = '';
+            sendRequestBtn.disabled = true;
+            
+            try {
+                // In a real implementation, you would send this to a backend server
+                // For security, API keys should never be exposed in frontend code
+                // This is a simulated API call for demonstration
+                
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // For demonstration, we'll simulate a response
+                // In a real implementation, you would call the OpenAI API
+                const simulatedResponse = simulateOpenAIResponse(prompt);
+                
+                // Display the response
+                outputDiv.textContent = simulatedResponse;
+                showMessage('API request successful! Response received.', 'success');
+                
+            } catch (error) {
+                console.error('API Error:', error);
+                outputDiv.textContent = `Error: ${error.message}\n\nNote: This is a frontend demonstration. In a real application, the API key would be secured on a backend server.`;
+                showMessage('API request failed. See output for details.', 'error');
+            } finally {
+                // Hide loading indicator
+                loadingIndicator.style.display = 'none';
+                sendRequestBtn.disabled = false;
+            }
+        });
+        
+        // Function to simulate OpenAI API response
+        function simulateOpenAIResponse(prompt) {
+            const responses = {
+                "neural networks": "Neural networks are computing systems inspired by biological neural networks. They consist of interconnected nodes (neurons) organized in layers: an input layer, one or more hidden layers, and an output layer. Each connection has a weight that adjusts as the network learns from data.\n\nKey concepts:\n1. Neurons: Basic units that receive input, apply weights, and pass output\n2. Activation functions: Determine if a neuron should 'fire'\n3. Backpropagation: Algorithm for adjusting weights based on errors\n4. Training: Process of feeding data to improve accuracy\n\nNeural networks excel at pattern recognition and are used in image recognition, natural language processing, and many AI applications.",
+                "quantum computing": "Quantum computing uses quantum-mechanical phenomena like superposition and entanglement to perform computation. Unlike classical bits (0 or 1), quantum bits (qubits) can exist in multiple states simultaneously.\n\nKey principles:\n1. Superposition: Qubits can be 0, 1, or both at once\n2. Entanglement: Quantum states of multiple particles become linked\n3. Quantum interference: Probability amplitudes can reinforce or cancel\n\nPotential applications include drug discovery, cryptography, and optimization problems that are intractable for classical computers.",
+                "machine learning": "Machine learning is a subset of AI where systems learn from data without explicit programming. There are three main types:\n\n1. Supervised learning: Models learn from labeled data (e.g., classification)\n2. Unsupervised learning: Models find patterns in unlabeled data (e.g., clustering)\n3. Reinforcement learning: Models learn through trial and error with rewards\n\nCommon algorithms include linear regression, decision trees, and neural networks. ML powers recommendation systems, fraud detection, and autonomous vehicles."
+            };
+            
+            const promptLower = prompt.toLowerCase();
+            
+            // Check for keywords in the prompt
+            if (promptLower.includes("neural network")) {
+                return responses["neural networks"];
+            } else if (promptLower.includes("quantum")) {
+                return responses["quantum computing"];
+            } else if (promptLower.includes("machine learning")) {
+                return responses["machine learning"];
+            }
+            
+            // Default response
+            return `Response to: "${prompt}"\n\nThank you for your query. This is a simulated response from the OpenAI API interface.\n\nIn a real implementation, this would connect to the actual OpenAI API using the provided key. The API would process your prompt and return a generated text response.\n\nFor demonstration purposes, we're showing this simulated response. The actual API would provide a more detailed and context-aware answer based on the latest AI models.\n\nAPI Status: Ready\nModel: gpt-3.5-turbo (simulated)\nTokens: ~150 (simulated)`;
+        }
+        
+        // Function to show messages
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Initialize with a sample API call on page load (optional)
+        // Uncomment the line below to auto-load a sample response
+        // window.addEventListener('DOMContentLoaded', () => sendRequestBtn.click());
+    </script>
+</body>
+</html>

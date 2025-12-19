@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mini VS Code Pro + ! Boilerplate</title>
+
+<style>
+*{box-sizing:border-box;font-family:Segoe UI,Arial}
+body{margin:0;background:#0f172a;color:#fff}
+.app{display:flex;height:100vh}
+
+/* LEFT */
+.editor-side{width:45%;background:#020617;display:flex;flex-direction:column}
+.tabs{display:flex;border-bottom:1px solid #1e293b}
+.tabs button{
+  padding:10px 16px;border:none;background:none;
+  color:#94a3b8;cursor:pointer
+}
+.tabs button.active{
+  color:#fff;border-bottom:2px solid #3b82f6
+}
+.toolbar{
+  display:flex;justify-content:space-between;
+  padding:6px 10px;border-bottom:1px solid #1e293b;
+  font-size:12px;color:#94a3b8
+}
+.toolbar button{
+  background:#1e293b;border:none;color:#fff;
+  padding:4px 10px;border-radius:5px;cursor:pointer
+}
+.editor{flex:1}
+
+/* RIGHT */
+.preview-side{width:55%;background:#020617;padding:10px;display:flex;flex-direction:column}
+.controls{display:flex;gap:10px;margin-bottom:8px}
+select{
+  background:#1e293b;color:#fff;border:none;
+  padding:6px 10px;border-radius:6px
+}
+.preview-area{
+  flex:1;background:#111827;border-radius:10px;
+  display:flex;justify-content:center;align-items:center;overflow:auto
+}
+.device{background:#fff;border-radius:8px;overflow:hidden}
+.device.mobile{width:375px;height:667px}
+.device.tablet{width:768px;height:1024px}
+.device.laptop{width:1366px;height:768px}
+.device.desktop{width:1280px;height:720px}
+.device.fullhd{width:1920px;height:1080px}
+iframe{width:100%;height:100%;border:none}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- LEFT -->
+<div class="editor-side">
+  <div class="tabs">
+    <button class="active" onclick="showEditor('html',this)">index.html</button>
+    <button onclick="showEditor('css',this)">style.css</button>
+    <button onclick="showEditor('js',this)">script.js</button>
+  </div>
+
+  <div class="toolbar">
+    <span id="fileName">index.html</span>
+    <button onclick="copyCode()">Copy</button>
+  </div>
+
+  <div id="htmlEditor" class="editor"></div>
+  <div id="cssEditor" class="editor" style="display:none"></div>
+  <div id="jsEditor" class="editor" style="display:none"></div>
+</div>
+
+<!-- RIGHT -->
+<div class="preview-side">
+  <div class="controls">
+    <select onchange="setDevice(this.value)">
+      <option value="desktop">Desktop</option>
+      <option value="laptop">Laptop</option>
+      <option value="tablet">Tablet</option>
+      <option value="mobile">Mobile</option>
+      <option value="fullhd">Full HD</option>
+    </select>
+  </div>
+
+  <div class="preview-area">
+    <div class="device desktop" id="device">
+      <iframe id="preview"></iframe>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- MONACO -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+
+<script>
+require.config({
+  paths:{vs:'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs'}
+});
+
+/* 🔥 EMMENT FIX */
+window.MonacoEnvironment = {
+  getWorkerUrl: function () {
+    return 'data:text/javascript;charset=utf-8,' +
+      encodeURIComponent(`
+        self.MonacoEnvironment = { baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/' };
+        importScripts('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/base/worker/workerMain.js');
+      `);
+  }
+};
+
+let activeEditor='html';
+
+require(['vs/editor/editor.main'],()=>{
+
+  /* HTML */
+  window.htmlEditor = monaco.editor.create(
+    document.getElementById('htmlEditor'),
+    {
+      value: localStorage.html || `!`,
+      language: 'html',
+      theme: 'vs-dark',
+      automaticLayout: true,
+      quickSuggestions: true,
+      tabCompletion: "on",
+      suggestOnTriggerCharacters: true
+    }
+  );
+
+  /* CSS */
+  window.cssEditor = monaco.editor.create(
+    document.getElementById('cssEditor'),
+    {
+      value: localStorage.css || ``,
+      language: 'css',
+      theme: 'vs-dark',
+      automaticLayout: true,
+      quickSuggestions: true,
+      tabCompletion: "on"
+    }
+  );
+
+  /* JS */
+  window.jsEditor = monaco.editor.create(
+    document.getElementById('jsEditor'),
+    {
+      value: localStorage.js || ``,
+      language: 'javascript',
+      theme: 'vs-dark',
+      automaticLayout: true,
+      quickSuggestions: true
+    }
+  );
+
+  // 🔹 CUSTOM SNIPPET: ! → HTML Boilerplate
+  monaco.languages.registerCompletionItemProvider('html', {
+    triggerCharacters: ['!'],
+    provideCompletionItems: () => {
+      return {
+        suggestions: [
+          {
+            label: '!',
+            kind: monaco.languages.CompletionItemKind.Snippet,
+            documentation: 'HTML5 Boilerplate',
+            insertText: [
+              '<!DOCTYPE html>',
+              '<html lang="en">',
+              '<head>',
+              '    <meta charset="UTF-8">',
+              '    <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+              '    <title>Document</title>',
+              '</head>',
+              '<body>',
+              '',
+              '</body>',
+              '</html>'
+            ].join('\n'),
+            insertTextRules:
+              monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+          }
+        ]
+      };
+    }
+  });
+
+  [htmlEditor,cssEditor,jsEditor].forEach(ed=>{
+    ed.onDidChangeModelContent(()=>{
+      autoSave();
+      updatePreview();
+    });
+  });
+
+  updatePreview();
+});
+
+/* TAB SWITCH */
+function showEditor(type,btn){
+  activeEditor=type;
+  fileName.innerText =
+    type==='html'?'index.html':type==='css'?'style.css':'script.js';
+
+  document.querySelectorAll('.editor').forEach(e=>e.style.display='none');
+  document.getElementById(type+'Editor').style.display='block';
+
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* PREVIEW */
+function updatePreview(){
+  preview.srcdoc=`
+  <html>
+  <head><style>${cssEditor.getValue()}</style></head>
+  <body>
+    ${htmlEditor.getValue()}
+    <script>${jsEditor.getValue()}<\/script>
+  </body>
+  </html>`;
+}
+
+/* DEVICE */
+function setDevice(type){
+  device.className='device '+type;
+}
+
+/* AUTO SAVE */
+function autoSave(){
+  localStorage.html=htmlEditor.getValue();
+  localStorage.css=cssEditor.getValue();
+  localStorage.js=jsEditor.getValue();
+}
+
+/* COPY */
+function copyCode(){
+  let text =
+    activeEditor==='html'?htmlEditor.getValue():
+    activeEditor==='css'?cssEditor.getValue():
+    jsEditor.getValue();
+  navigator.clipboard.writeText(text);
+  alert("Code copied!");
+}
+</script>
+
+
+
+</body>
+</html>

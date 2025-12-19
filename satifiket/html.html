@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete HTML Tutorial with Examples</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #3b82f6;
+            --accent-color: #8b5cf6;
+            --text-color: #1f2937;
+            --light-bg: #f3f4f6;
+            --dark-bg: #111827;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--dark-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: var(--primary-color);
+        }
+
+        /* Main Layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-right: 2px solid #e5e7eb;
+            overflow-y: auto;
+            max-height: 100vh;
+            position: sticky;
+            top: 80px;
+        }
+
+        .sidebar h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .sidebar a:hover {
+            background: white;
+            color: var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid #e5e7eb;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-bg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2 i {
+            color: var(--accent-color);
+        }
+
+        .section h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        /* Code Examples */
+        .example-box {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            position: relative;
+        }
+
+        .example-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #569cd6;
+            font-weight: 500;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .code-output {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Interactive Elements */
+        .demo-area {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+        }
+
+        .demo-area h4 {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        /* Tags Grid */
+        .tags-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tag-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            transition: var(--transition);
+        }
+
+        .tag-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .tag-name {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-family: 'Consolas', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Utility Classes */
+        .note {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .tip {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        /* Syntax Highlighting */
+        .html-tag { color: #569cd6; }
+        .attribute { color: #9cdcfe; }
+        .value { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .text { color: #d4d4d4; }
+
+        /* Table Styles */
+        .demo-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .demo-table th,
+        .demo-table td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .demo-table th {
+            background: var(--light-bg);
+            font-weight: 600;
+        }
+
+        .demo-table tr:hover {
+            background: #f9fafb;
+        }
+
+        /* Form Demo */
+        .form-demo {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-1px);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .fab:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        /* Accordion */
+        .accordion {
+            margin: 1rem 0;
+        }
+
+        .accordion-item {
+            border: 1px solid #e5e7eb;
+            border-radius: var(--border-radius);
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: var(--light-bg);
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .accordion-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content.active {
+            padding: 1rem;
+            max-height: 1000px;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>📚 Complete HTML Tutorial</h1>
+            <p class="subtitle">Learn HTML from Basics to Advanced with Live Examples</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="#basics">HTML Basics</a></li>
+                <li><a href="#text">Text Formatting</a></li>
+                <li><a href="#links">Links & Images</a></li>
+                <li><a href="#lists">Lists</a></li>
+                <li><a href="#tables">Tables</a></li>
+                <li><a href="#forms">Forms</a></li>
+                <li><a href="#semantic">Semantic HTML</a></li>
+                <li><a href="#media">Media</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3>Quick Navigation</h3>
+                <ul>
+                    <li><a href="#getting-started">Getting Started</a></li>
+                    <li><a href="#document-structure">Document Structure</a></li>
+                    <li><a href="#text-tags">Text Tags</a></li>
+                    <li><a href="#heading-tags">Heading Tags</a></li>
+                    <li><a href="#formatting-tags">Formatting Tags</a></li>
+                    <li><a href="#link-tags">Link Tags</a></li>
+                    <li><a href="#image-tags">Image Tags</a></li>
+                    <li><a href="#list-tags">List Tags</a></li>
+                    <li><a href="#table-tags">Table Tags</a></li>
+                    <li><a href="#form-tags">Form Tags</a></li>
+                    <li><a href="#semantic-tags">Semantic Tags</a></li>
+                    <li><a href="#media-tags">Media Tags</a></li>
+                    <li><a href="#attributes">Attributes</a></li>
+                    <li><a href="#entities">HTML Entities</a></li>
+                    <li><a href="#best-practices">Best Practices</a></li>
+                </ul>
+
+                <h3 style="margin-top: 2rem;">Live Examples</h3>
+                <ul>
+                    <li><a href="#demo-form">Form Demo</a></li>
+                    <li><a href="#demo-table">Table Demo</a></li>
+                    <li><a href="#demo-media">Media Demo</a></li>
+                    <li><a href="#demo-canvas">Canvas Demo</a></li>
+                </ul>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content">
+                <!-- HTML Basics -->
+                <section id="basics" class="section">
+                    <h2><i class="fas fa-code"></i> HTML Basics</h2>
+                    
+                    <div id="getting-started">
+                        <h3>What is HTML?</h3>
+                        <p>HTML (HyperText Markup Language) is the standard markup language for creating web pages. It describes the structure of web pages using markup.</p>
+                        
+                        <div class="example-box">
+                            <div class="example-header">
+                                <span>Basic HTML Document</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+<pre><code><span class="html-tag">&lt;!DOCTYPE html&gt;</span>
+<span class="html-tag">&lt;html</span> <span class="attribute">lang</span>=<span class="value">"en"</span><span class="html-tag">&gt;</span>
+<span class="html-tag">&lt;head&gt;</span>
+    <span class="html-tag">&lt;meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span><span class="html-tag">&gt;</span>
+    <span class="html-tag">&lt;meta</span> <span class="attribute">name</span>=<span class="value">"viewport"</span> <span class="attribute">content</span>=<span class="value">"width=device-width, initial-scale=1.0"</span><span class="html-tag">&gt;</span>
+    <span class="html-tag">&lt;title&gt;</span><span class="text">My First Page</span><span class="html-tag">&lt;/title&gt;</span>
+<span class="html-tag">&lt;/head&gt;</span>
+<span class="html-tag">&lt;body&gt;</span>
+    <span class="html-tag">&lt;h1&gt;</span><span class="text">Hello World!</span><span class="html-tag">&lt;/h1&gt;</span>
+    <span class="html-tag">&lt;p&gt;</span><span class="text">This is my first HTML page.</span><span class="html-tag">&lt;/p&gt;</span>
+<span class="html-tag">&lt;/body&gt;</span>
+<span class="html-tag">&lt;/html&gt;</span></code></pre>
+                        </div>
+                    </div>
+
+                    <div id="document-structure">
+                        <h3>Document Structure</h3>
+                        <div class="tags-grid">
+                            <div class="tag-card">
+                                <div class="tag-name">&lt;!DOCTYPE html&gt;</div>
+                                <p>Defines the document type and HTML version</p>
+                            </div>
+                            <div class="tag-card">
+                                <div class="tag-name">&lt;html&gt;</div>
+                                <p>Root element of an HTML page</p>
+                            </div>
+                            <div class="tag-card">
+                                <div class="tag-name">&lt;head&gt;</div>
+                                <p>Contains meta information about the document</p>
+                            </div>
+                            <div class="tag-card">
+                                <div class="tag-name">&lt;body&gt;</div>
+                                <p>Contains the visible page content</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Text Formatting -->
+                <section id="text" class="section">
+                    <h2><i class="fas fa-text-height"></i> Text Formatting</h2>
+                    
+                    <div id="heading-tags">
+                        <h3>Heading Tags (h1 - h6)</h3>
+                        <div class="example-box">
+                            <div class="example-header">
+                                <span>Heading Example</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+<pre><code><span class="html-tag">&lt;h1&gt;</span><span class="text">Main Heading (Largest)</span><span class="html-tag">&lt;/h1&gt;</span>
+<span class="html-tag">&lt;h2&gt;</span><span class="text">Subheading</span><span class="html-tag">&lt;/h2&gt;</span>
+<span class="html-tag">&lt;h3&gt;</span><span class="text">Section Heading</span><span class="html-tag">&lt;/h3&gt;</span>
+<span class="html-tag">&lt;h4&gt;</span><span class="text">Sub-section</span><span class="html-tag">&lt;/h4&gt;</span>
+<span class="html-tag">&lt;h5&gt;</span><span class="text">Minor Heading</span><span class="html-tag">&lt;/h5&gt;</span>
+<span class="html-tag">&lt;h6&gt;</span><span class="text">Smallest Heading</span><span class="html-tag">&lt;/h6&gt;</span></code></pre>
+                        </div>
+                        
+                        <div class="code-output">
+                            <h1>Main Heading (Largest)</h1>
+                            <h2>Subheading</h2>
+                            <h3>Section Heading</h3>
+                            <h4>Sub-section</h4>
+                            <h5>Minor Heading</h5>
+                            <h6>Smallest Heading</h6>
+                        </div>
+                    </div>
+
+                    <div id="formatting-tags">
+                        <h3>Text Formatting Tags</h3>
+                        <div class="example-box">
+                            <div class="example-header">
+                                <span>Formatting Examples</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+<pre><code><span class="html-tag">&lt;p&gt;</span>
+    <span class="html-tag">&lt;b&gt;</span><span class="text">Bold Text</span><span class="html-tag">&lt;/b&gt;</span> 
+    <span class="html-tag">&lt;i&gt;</span><span class="text">Italic Text</span><span class="html-tag">&lt;/i&gt;</span>
+    <span class="html-tag">&lt;u&gt;</span><span class="text">Underlined</span><span class="html-tag">&lt;/u&gt;</span>
+    <span class="html-tag">&lt;mark&gt;</span><span class="text">Highlighted</span><span class="html-tag">&lt;/mark&gt;</span>
+<span class="html-tag">&lt;/p&gt;</span>
+<span class="html-tag">&lt;p&gt;</span>
+    <span class="html-tag">&lt;strong&gt;</span><span class="text">Important Text</span><span class="html-tag">&lt;/strong&gt;</span>
+    <span class="html-tag">&lt;em&gt;</span><span class="text">Emphasized Text</span><span class="html-tag">&lt;/em&gt;</span>
+<span class="html-tag">&lt;/p&gt;</span>
+<span class="html-tag">&lt;p&gt;</span>
+    H<span class="html-tag">&lt;sub&gt;</span><span class="text">2</span><span class="html-tag">&lt;/sub&gt;</span>O 
+    and x<span class="html-tag">&lt;sup&gt;</span><span class="text">2</span><span class="html-tag">&lt;/sup&gt;</span>
+<span class="html-tag">&lt;/p&gt;</span>
+<span class="html-tag">&lt;p&gt;</span>
+    <span class="html-tag">&lt;del&gt;</span><span class="text">Deleted Text</span><span class="html-tag">&lt;/del&gt;</span>
+    <span class="html-tag">&lt;ins&gt;</span><span class="text">Inserted Text</span><span class="html-tag">&lt;/ins&gt;</span>
+<span class="html-tag">&lt;/p&gt;</span></code></pre>
+                        </div>
+                        
+                        <div class="code-output">
+                            <p>
+                                <b>Bold Text</b> 
+                                <i>Italic Text</i>
+                                <u>Underlined</u>
+                                <mark>Highlighted</mark>
+                            </p>
+                            <p>
+                                <strong>Important Text</strong>
+                                <em>Emphasized Text</em>
+                            </p>
+                            <p>
+                                H<sub>2</sub>O and x<sup>2</sup>
+                            </p>
+                            <p>
+                                <del>Deleted Text</del>
+                                <ins>Inserted Text</ins>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Links & Images -->
+                <section id="links" class="section">
+                    <h2><i class="fas fa-link"></i> Links & Images</h2>
+                    
+                    <div id="link-tags">
+                        <h3>Anchor Tags (Links)</h3>
+                        <div class="example-box">
+                            <div class="example-header">
+                                <span>Link Examples</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+<pre><code><span class="comment">&lt;!-- External Link --&gt;</span>
+<span class="html-tag">&lt;a</span> <span class="attribute">href</span>=<span class="value">"https://google.com"</span> <span class="attribute">target</span>=<span class="value">"_blank"</span><span class="html-tag">&gt;</span>
+    <span class="text">Visit Google</span>
+<span class="html-tag">&lt;/a&gt;</span>
+
+<span class="comment">&lt;!-- Internal Link --&gt;</span>
+<span class="html-tag">&lt;a</span> <span class="attribute">href</span>=<span class="value">"#section"</span><span class="html-tag">&gt;</span>
+    <span class="text">Go to Section</span>
+<span class="html-tag">&lt;/a&gt;</span>
+
+<span class="comment">&lt;!-- Email Link --&gt;</span>
+<span class="html-tag">&lt;a</span> <span class="attribute">href</span>=<span class="value">"mailto:email@example.com"</span><span class="html-tag">&gt;</span>
+    <span class="text">Send Email</span>
+<span class="html-tag">&lt;/a&gt;</span>
+
+<span class="comment">&lt;!-- Download Link --&gt;</span>
+<span class="html-tag">&lt;a</span> <span class="attribute">href</span>=<span class="value">"file.pdf"</span> <span class="attribute">download</span><span class="html-tag">&gt;</span>
+    <span class="text">Download PDF</span>
+<span class="html-tag">&lt;/a&gt;</span></code></pre>
+                        </div>
+                    </div>
+
+                    <div id="image-tags">
+                        <h3>Image Tags</h3>
+                        <div class="example-box">
+                            <div class="example-header">
+                                <span>Image Examples</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+<pre><code><span class="comment">&lt;!-- Basic Image --&gt;</span>
+<span class="html-tag">&lt;img</span> <span class="attribute">src</span>=<span class="value">"image.jpg"</span> <span class="attribute">alt</span>=<span class="value">"Description"</span><span class="html-tag">&gt;</span>
+
+<span class="comment">&lt;!-- Image with Dimensions --&gt;</span>
+<span class="html-tag">&lt;img</span> <span class="attribute">src</span>=<span class="value">"photo.png"</span> 
+     <span class="attribute">alt</span>=<span class="value">"Nature"</span>
+     <span class="attribute">width</span>=<span class="value">"400"</span>
+     <span class="attribute">height</span>=<span class="value">"300"</span><span class="html-tag">&gt;</span>
+
+<span class="comment">&lt;!-- Responsive Image --&gt;</span>
+<span class="html-tag">&lt;img</span> <span class="attribute">src</span>=<span class="value">"image.jpg"</span> 
+     <span class="attribute">alt</span>=<span class="value">"Responsive"</span>
+     <span class="attribute">style</span>=<span class="value">"max-width: 100%; height: auto;"</span><span class="html-tag">&gt;</span></code></pre>
+                        </div>
+                        
+                        <div class="demo-area">
+                            <h4>Live Image Demo</h4>
+                            <img src="https://via.placeholder.com/400x200.png/3b82f6/ffffff?text=HTML+Image+Example" 
+                                 alt="Placeholder Image" 
+                                 style="max-width: 100%; height: auto; border-radius: 8px;">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Lists -->
+                <section id="lists" class="section">
+                    <h2><i class="fas fa-list"></i> Lists</h2>
+                    
+                    <div class="example-box">
+                        <div class="example-header">
+                            <span>List Examples</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+<pre><code><span class="comment">&lt;!-- Unordered List --&gt;</span>
+<span class="html-tag">&lt;ul&gt;</span>
+    <span class="html-tag">&lt;li&gt;</span><span class="text">Apple</span><span class="html-tag">&lt;/li&gt;</span>
+    <span class="html-tag">&lt;li&gt;</span><span class="text">Banana</span><span class="html-tag">&lt;/li&gt;</span>
+    <span class="html-tag">&lt;li&gt;</span><span class="text">Cherry</span><span class="html-tag">&lt;/li&gt;</span>
+<span class="html-tag">&lt;/ul&gt;</span>
+
+<span class="comment">&lt;!-- Ordered List --&gt;</span>
+<span class="html-tag">&lt;ol&gt;</span>
+    <span class="html-tag">&lt;li&gt;</span><span class="text">First Item</span><span class="html-tag">&lt;/li&gt;</span>
+    <span class="html-tag">&lt;li&gt;</span><span class="text">Second Item</span><span class="html-tag">&lt;/li&gt;</span>
+    <span class="html-tag">&lt;li&gt;</span><span class="text">Third Item</span><span class="html-tag">&lt;/li&gt;</span>
+<span class="html-tag">&lt;/ol&gt;</span>
+
+<span class="comment">&lt;!-- Description List --&gt;</span>
+<span class="html-tag">&lt;dl&gt;</span>
+    <span class="html-tag">&lt;dt&gt;</span><span class="text">HTML</span><span class="html-tag">&lt;/dt&gt;</span>
+    <span class="html-tag">&lt;dd&gt;</span><span class="text">HyperText Markup Language</span><span class="html-tag">&lt;/dd&gt;</span>
+    <span class="html-tag">&lt;dt&gt;</span><span class="text">CSS</span><span class="html-tag">&lt;/dt&gt;</span>
+    <span class="html-tag">&lt;dd&gt;</span><span class="text">Cascading Style Sheets</span><span class="html-tag">&lt;/dd&gt;</span>
+<span class="html-tag">&lt;/dl&gt;</span></code></pre>
+                    </div>
+                    
+                    <div class="code-output">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
+                            <div>
+                                <h4>Unordered List</h4>
+                                <ul>
+                                    <li>Apple</li>
+                                    <li>Banana</li>
+                                    <li>Cherry</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Ordered List</h4>
+                                <ol>
+                                    <li>First Item</li>
+                                    <li>Second Item</li>
+                                    <li>Third Item</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h4>Description List</h4>
+                                <dl>
+                                    <dt>HTML</dt>
+                                    <dd>HyperText Markup Language</dd>
+                                    <dt>CSS</dt>
+                                    <dd>Cascading Style Sheets</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tables -->
+                <section id="tables" class="section">
+                    <h2><i class="fas fa-table"></i> Tables</h2>
+                    
+                    <div class="example-box">
+                        <div class="example-header">
+                            <span>Table Structure</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+<pre><code><span class="html-tag">&lt;table</span> <span class="attribute">border</span>=<span class="value">"1"</span><span class="html-tag">&gt;</span>
+    <span class="html-tag">&lt;caption&gt;</span><span class="text">Student Marks</span><span class="html-tag">&lt;/caption&gt;</span>
+    <span class="html-tag">&lt;thead&gt;</span>
+        <span class="html-tag">&lt;tr&gt;</span>
+            <span class="html-tag">&lt;th&gt;</span><span class="text">Roll No</span><span class="html-tag">&lt;/th&gt;</span>
+            <span class="html-tag">&lt;th&gt;</span><span class="text">Name</span><span class="html-tag">&lt;/th&gt;</span>
+            <span class="html-tag">&lt;th&gt;</span><span class="text">Marks</span><span class="html-tag">&lt;/th&gt;</span>
+        <span class="html-tag">&lt;/tr&gt;</span>
+    <span class="html-tag">&lt;/thead&gt;</span>
+    <span class="html-tag">&lt;tbody&gt;</span>
+        <span class="html-tag">&lt;tr&gt;</span>
+            <span class="html-tag">&lt;td&gt;</span><span class="text">101</span><span class="html-tag">&lt;/td&gt;</span>
+            <span class="html-tag">&lt;td&gt;</span><span class="text">John Doe</span><span class="html-tag">&lt;/td&gt;</span>
+            <span class="html-tag">&lt;td&gt;</span><span class="text">85</span><span class="html-tag">&lt;/td&gt;</span>
+        <span class="html-tag">&lt;/tr&gt;</span>
+        <span class="html-tag">&lt;tr&gt;</span>
+            <span class="html-tag">&lt;td&gt;</span><span class="text">102</span><span class="html-tag">&lt;/td&gt;</span>
+            <span class="html-tag">&lt;td&gt;</span><span class="text">Jane Smith</span><span class="html-tag">&lt;/td&gt;</span>
+            <span class="html-tag">&lt;td&gt;</span><span class="text">92</span><span class="html-tag">&lt;/td&gt;</span>
+        <span class="html-tag">&lt;/tr&gt;</span>
+    <span class="html-tag">&lt;/tbody&gt;</span>
+    <span class="html-tag">&lt;tfoot&gt;</span>
+        <span class="html-tag">&lt;tr&gt;</span>
+            <span class="html-tag">&lt;td</span> <span class="attribute">colspan</span>=<span class="value">"2"</span><span class="html-tag">&gt;</span><span class="text">Average</span><span class="html-tag">&lt;/td&gt;</span>
+            <span class="html-tag">&lt;td&gt;</span><span class="text">88.5</span><span class="html-tag">&lt;/td&gt;</span>
+        <span class="html-tag">&lt;/tr&gt;</span>
+    <span class="html-tag">&lt;/tfoot&gt;</span>
+<span class="html-tag">&lt;/table&gt;</span></code></pre>
+                    </div>
+                    
+                    <div id="demo-table" class="demo-area">
+                        <h4>Live Table Demo</h4>
+                        <table class="demo-table">
+                            <caption>Student Marks Table</caption>
+                            <thead>
+                                <tr>
+                                    <th>Roll No</th>
+                                    <th>Name</th>
+                                    <th>Math</th>
+                                    <th>Science</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>101</td>
+                                    <td>John Doe</td>
+                                    <td>85</td>
+                                    <td>90</td>
+                                    <td>175</td>
+                                </tr>
+                                <tr>
+                                    <td>102</td>
+                                    <td>Jane Smith</td>
+                                    <td>92</td>
+                                    <td>88</td>
+                                    <td>180</td>
+                                </tr>
+                                <tr>
+                                    <td>103</td>
+                                    <td>Bob Johnson</td>
+                                    <td>78</td>
+                                    <td>85</td>
+                                    <td>163</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Forms -->
+                <section id="forms" class="section">
+                    <h2><i class="fas fa-edit"></i> Forms</h2>
+                    
+                    <div id="form-tags">
+                        <h3>Form Elements</h3>
+                        <div class="example-box">
+                            <div class="example-header">
+                                <span>Basic Form</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+<pre><code><span class="html-tag">&lt;form</span> <span class="attribute">action</span>=<span class="value">"/submit"</span> <span class="attribute">method</span>=<span class="value">"POST"</span><span class="html-tag">&gt;</span>
+    <span class="html-tag">&lt;label</span> <span class="attribute">for</span>=<span class="value">"name"</span><span class="html-tag">&gt;</span><span class="text">Name:</span><span class="html-tag">&lt;/label&gt;</span>
+    <span class="html-tag">&lt;input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"name"</span> <span class="attribute">name</span>=<span class="value">"name"</span> <span class="attribute">required</span><span class="html-tag">&gt;</span>
+    
+    <span class="html-tag">&lt;label</span> <span class="attribute">for</span>=<span class="value">"email"</span><span class="html-tag">&gt;</span><span class="text">Email:</span><span class="html-tag">&lt;/label&gt;</span>
+    <span class="html-tag">&lt;input</span> <span class="attribute">type</span>=<span class="value">"email"</span> <span class="attribute">id</span>=<span class="value">"email"</span> <span class="attribute">name</span>=<span class="value">"email"</span> <span class="attribute">required</span><span class="html-tag">&gt;</span>
+    
+    <span class="html-tag">&lt;label</span> <span class="attribute">for</span>=<span class="value">"password"</span><span class="html-tag">&gt;</span><span class="text">Password:</span><span class="html-tag">&lt;/label&gt;</span>
+    <span class="html-tag">&lt;input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">id</span>=<span class="value">"password"</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">minlength</span>=<span class="value">"8"</span><span class="html-tag">&gt;</span>
+    
+    <span class="html-tag">&lt;button</span> <span class="attribute">type</span>=<span class="value">"submit"</span><span class="html-tag">&gt;</span><span class="text">Submit</span><span class="html-tag">&lt;/button&gt;</span>
+<span class="html-tag">&lt;/form&gt;</span></code></pre>
+                        </div>
+                    </div>
+                    
+                    <div id="demo-form" class="form-demo">
+                        <h3>Interactive Form Demo</h3>
+                        <form id="contactForm" onsubmit="return handleFormSubmit(event)">
+                            <div class="form-group">
+                                <label for="demo-name">Full Name *</label>
+                                <input type="text" id="demo-name" name="name" required 
+                                       placeholder="Enter your full name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="demo-email">Email Address *</label>
+                                <input type="email" id="demo-email" name="email" required 
+                                       placeholder="your@email.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="demo-phone">Phone Number</label>
+                                <input type="tel" id="demo-phone" name="phone" 
+                                       placeholder="+1 (234) 567-8900">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="demo-country">Country</label>
+                                <select id="demo-country" name="country">
+                                    <option value="">Select Country</option>
+                                    <option value="us">United States</option>
+                                    <option value="in">India</option>
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="ca">Canada</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="radio" name="gender" value="male">
+                                        Male
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="radio" name="gender" value="female">
+                                        Female
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Interests</label>
+                                <div style="margin-top: 0.5rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                        <input type="checkbox" name="interests" value="coding">
+                                        Coding
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                        <input type="checkbox" name="interests" value="design">
+                                        Design
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="checkbox" name="interests" value="music">
+                                        Music
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="demo-message">Message</label>
+                                <textarea id="demo-message" name="message" rows="4" 
+                                          placeholder="Enter your message..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn">
+                                <i class="fas fa-paper-plane"></i> Submit Form
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Semantic HTML -->
+                <section id="semantic" class="section">
+                    <h2><i class="fas fa-sitemap"></i> Semantic HTML</h2>
+                    
+                    <div class="note">
+                        <strong>Note:</strong> Semantic HTML improves accessibility and SEO by clearly describing the meaning of content.
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-header">
+                            <span>Semantic Layout</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+<pre><code><span class="html-tag">&lt;header&gt;</span>
+    <span class="html-tag">&lt;h1&gt;</span><span class="text">Website Title</span><span class="html-tag">&lt;/h1&gt;</span>
+    <span class="html-tag">&lt;nav&gt;</span>
+        <span class="html-tag">&lt;a</span> <span class="attribute">href</span>=<span class="value">"#"</span><span class="html-tag">&gt;</span><span class="text">Home</span><span class="html-tag">&lt;/a&gt;</span>
+        <span class="html-tag">&lt;a</span> <span class="attribute">href</span>=<span class="value">"#"</span><span class="html-tag">&gt;</span><span class="text">About</span><span class="html-tag">&lt;/a&gt;</span>
+    <span class="html-tag">&lt;/nav&gt;</span>
+<span class="html-tag">&lt;/header&gt;</span>
+
+<span class="html-tag">&lt;main&gt;</span>
+    <span class="html-tag">&lt;article&gt;</span>
+        <span class="html-tag">&lt;section&gt;</span>
+            <span class="html-tag">&lt;h2&gt;</span><span class="text">Article Title</span><span class="html-tag">&lt;/h2&gt;</span>
+            <span class="html-tag">&lt;p&gt;</span><span class="text">Article content...</span><span class="html-tag">&lt;/p&gt;</span>
+        <span class="html-tag">&lt;/section&gt;</span>
+    <span class="html-tag">&lt;/article&gt;</span>
+    
+    <span class="html-tag">&lt;aside&gt;</span>
+        <span class="html-tag">&lt;h3&gt;</span><span class="text">Related Links</span><span class="html-tag">&lt;/h3&gt;</span>
+    <span class="html-tag">&lt;/aside&gt;</span>
+<span class="html-tag">&lt;/main&gt;</span>
+
+<span class="html-tag">&lt;footer&gt;</span>
+    <span class="html-tag">&lt;p&gt;</span><span class="text">&copy; 2024 My Website</span><span class="html-tag">&lt;/p&gt;</span>
+<span class="html-tag">&lt;/footer&gt;</span></code></pre>
+                    </div>
+                </section>
+
+                <!-- Media -->
+                <section id="media" class="section">
+                    <h2><i class="fas fa-photo-video"></i> Media Elements</h2>
+                    
+                    <div id="demo-media" class="demo-area">
+                        <h3>Audio Player</h3>
+                        <audio controls style="width: 100%; margin-bottom: 2rem;">
+                            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                            Your browser does not support audio.
+                        </audio>
+                        
+                        <h3>Video Player</h3>
+                        <video controls style="width: 100%; border-radius: 8px;">
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                            Your browser does not support video.
+                        </video>
+                    </div>
+                    
+                    <div id="demo-canvas" class="demo-area">
+                        <h3>Canvas Drawing</h3>
+                        <canvas id="myCanvas" width="400" height="200" 
+                                style="border: 1px solid #ddd; border-radius: 8px; background: white;"></canvas>
+                        <div style="margin-top: 1rem;">
+                            <button class="btn" onclick="drawOnCanvas()">
+                                <i class="fas fa-paint-brush"></i> Draw on Canvas
+                            </button>
+                            <button class="btn" onclick="clearCanvas()" style="background: #ef4444;">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- HTML Attributes -->
+                <section id="attributes" class="section">
+                    <h2><i class="fas fa-cogs"></i> HTML Attributes</h2>
+                    
+                    <div class="tags-grid">
+                        <div class="tag-card">
+                            <div class="tag-name">class</div>
+                            <p>Specifies one or more class names for an element</p>
+                        </div>
+                        <div class="tag-card">
+                            <div class="tag-name">id</div>
+                            <p>Specifies a unique id for an element</p>
+                        </div>
+                        <div class="tag-card">
+                            <div class="tag-name">style</div>
+                            <p>Specifies an inline CSS style</p>
+                        </div>
+                        <div class="tag-card">
+                            <div class="tag-name">title</div>
+                            <p>Provides additional information (tooltip)</p>
+                        </div>
+                        <div class="tag-card">
+                            <div class="tag-name">data-*</div>
+                            <p>Custom data attributes</p>
+                        </div>
+                        <div class="tag-card">
+                            <div class="tag-name">hidden</div>
+                            <p>Hides the element</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- HTML Entities -->
+                <section id="entities" class="section">
+                    <h2><i class="fas fa-symbols"></i> HTML Entities</h2>
+                    
+                    <table class="demo-table">
+                        <thead>
+                            <tr>
+                                <th>Entity</th>
+                                <th>Character</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>&amp;nbsp;</td>
+                                <td> </td>
+                                <td>Non-breaking space</td>
+                                <td>Hello&nbsp;World</td>
+                            </tr>
+                            <tr>
+                                <td>&amp;lt;</td>
+                                <td>&lt;</td>
+                                <td>Less than</td>
+                                <td>5 &lt; 10</td>
+                            </tr>
+                            <tr>
+                                <td>&amp;gt;</td>
+                                <td>&gt;</td>
+                                <td>Greater than</td>
+                                <td>10 &gt; 5</td>
+                            </tr>
+                            <tr>
+                                <td>&amp;amp;</td>
+                                <td>&amp;</td>
+                                <td>Ampersand</td>
+                                <td>AT&amp;T</td>
+                            </tr>
+                            <tr>
+                                <td>&amp;copy;</td>
+                                <td>©</td>
+                                <td>Copyright</td>
+                                <td>&copy; 2024</td>
+                            </tr>
+                            <tr>
+                                <td>&amp;reg;</td>
+                                <td>®</td>
+                                <td>Registered</td>
+                                <td>Brand®</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Best Practices -->
+                <section id="best-practices" class="section">
+                    <h2><i class="fas fa-check-circle"></i> HTML Best Practices</h2>
+                    
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>1. Use Semantic HTML</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Always use semantic elements like &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;article&gt;, &lt;section&gt;, &lt;aside&gt;, and &lt;footer&gt; instead of generic &lt;div&gt; elements.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>2. Always Include Alt Text for Images</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Every &lt;img&gt; tag should have an alt attribute for accessibility and SEO.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>3. Use Proper Document Structure</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Always include &lt;!DOCTYPE html&gt;, proper meta tags, and follow heading hierarchy (h1 to h6).</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>📖 Complete HTML Tutorial & Examples</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">
+                Created with HTML, CSS, and JavaScript | 
+                <a href="#top" style="color: #3b82f6; text-decoration: none;">Back to Top ↑</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#top" class="back-to-top">
+        <i class="fas fa-home"></i> Home
+    </a>
+
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <script>
+        // Copy Code Function
+        function copyCode(button) {
+            const codeBlock = button.parentElement.nextElementSibling;
+            const textToCopy = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Canvas Drawing
+        function drawOnCanvas() {
+            const canvas = document.getElementById('myCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw rectangle
+            ctx.fillStyle = '#3b82f6';
+            ctx.fillRect(50, 50, 100, 100);
+            
+            // Draw circle
+            ctx.beginPath();
+            ctx.fillStyle = '#8b5cf6';
+            ctx.arc(250, 100, 50, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw text
+            ctx.fillStyle = '#111827';
+            ctx.font = '16px Arial';
+            ctx.fillText('HTML Canvas Demo', 120, 180);
+        }
+
+        function clearCanvas() {
+            const canvas = document.getElementById('myCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Initialize canvas on load
+        document.addEventListener('DOMContentLoaded', drawOnCanvas);
+
+        // Form Handling
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('demo-name').value;
+            const email = document.getElementById('demo-email').value;
+            
+            alert(`Thank you, ${name}! Your form has been submitted.\nEmail: ${email}`);
+            
+            // Reset form
+            event.target.reset();
+            return false;
+        }
+
+        // Accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('i');
+            
+            content.classList.toggle('active');
+            
+            if (content.classList.contains('active')) {
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Highlight active section
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.3
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    const navLink = document.querySelector(`nav a[href="#${id}"]`);
+                    if (navLink) {
+                        document.querySelectorAll('nav a').forEach(a => a.style.background = '');
+                        navLink.style.background = '#2563eb';
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Responsive Navigation
+        window.addEventListener('resize', () => {
+            const nav = document.querySelector('nav ul');
+            if (window.innerWidth <= 1024) {
+                nav.style.flexDirection = 'column';
+            } else {
+                nav.style.flexDirection = 'row';
+            }
+        });
+    </script>
+</body>
+</html>

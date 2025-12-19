@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Section</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f2f7;
+        }
+
+        /* ===== Certificate Section ===== */
+        .certificate-section {
+            padding: 60px 20px;
+            background: #f5f7fb;
+        }
+
+        .certificate-container {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .certificate-content {
+            flex: 1;
+        }
+
+        .certificate-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        .certificate-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .certificate-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 22px;
+            border-radius: 6px;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            border: 2px solid #4b6cb7;
+            color: #4b6cb7;
+        }
+
+        .secondary-btn:hover {
+            background: #4b6cb7;
+            color: #fff;
+        }
+
+        .certificate-image-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .certificate-image-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+        }
+
+        .certificate-image {
+            max-width: 100%;
+            border-radius: 6px;
+        }
+
+        /* ===== Slider Box ===== */
+        .viw-satifiket {
+            margin-top: 40px;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .certificate-slider {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .certificate-track {
+            display: flex;
+            gap: 20px;
+            animation: scrollCertificates 25s linear infinite;
+        }
+
+        .certificate-track img {
+            width: 280px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .certificate-track img:hover {
+            transform: scale(1.08);
+        }
+
+        /* Animation */
+        @keyframes scrollCertificates {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .certificate-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .certificate-buttons {
+                justify-content: center;
+            }
+
+            .certificate-track img {
+                width: 220px;
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="certificate-section">
+        <div class="certificate-container">
+
+            <div class="certificate-content">
+                <h2 class="certificate-title">Certificate Confirm</h2>
+
+                <p class="certificate-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fames ac, a tristique scelerisque varius.
+                    Vitae ultrices dictum ultrices semper donec. Adipiscing condimentum sed suspendisse ultrices viverra
+                    massa.
+                </p>
+
+                <div class="certificate-buttons">
+                    <button class="btn secondary-btn" id="viewCertificateBtn">
+                        View Certificate
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="certificate-image-wrapper">
+                <div class="certificate-image-box">
+                    <img src="/0.img+video/bb.png" alt="Certificate img"
+                        class="certificate-image">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== Auto Moving Certificate Slider ===== -->
+        <div class="viw-satifiket" id="certificateBox">
+            <div class="certificate-slider">
+                <div class="certificate-track">
+                    <!-- Random Demo Certificates -->
+                    <img src="https://picsum.photos/400/280?random=1">
+                    <img src="https://picsum.photos/400/280?random=2">
+                    <img src="https://picsum.photos/400/280?random=3">
+                    <img src="https://picsum.photos/400/280?random=4">
+                    <img src="https://picsum.photos/400/280?random=5">
+                    <img src="https://picsum.photos/400/280?random=6">
+                    <!-- duplicate for smooth loop -->
+                    <img src="https://picsum.photos/400/280?random=1">
+                    <img src="https://picsum.photos/400/280?random=2">
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        const btn = document.getElementById("viewCertificateBtn");
+        const box = document.getElementById("certificateBox");
+
+        btn.addEventListener("click", () => {
+            if (box.style.display === "none" || box.style.display === "") {
+                box.style.display = "block";
+                btn.innerText = "Hide Certificate";
+            } else {
+                box.style.display = "none";
+                btn.innerText = "View Certificate";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

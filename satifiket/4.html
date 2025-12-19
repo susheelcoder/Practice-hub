@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mini VS Code Pro (Ultimate)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Segoe UI, Arial
+        }
+
+        body {
+            margin: 0;
+            background: #0f172a;
+            color: #fff
+        }
+
+        .app {
+            display: flex;
+            height: 100vh
+        }
+
+        .editor-side {
+            width: 45%;
+            background: #020617;
+            display: flex;
+            flex-direction: column
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #1e293b
+        }
+
+        .tabs button {
+            padding: 10px 16px;
+            border: none;
+            background: none;
+            color: #94a3b8;
+            cursor: pointer
+        }
+
+        .tabs button.active {
+            color: #fff;
+            border-bottom: 2px solid #3b82f6
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 10px;
+            border-bottom: 1px solid #1e293b;
+            font-size: 12px;
+            color: #94a3b8
+        }
+
+        .toolbar button {
+            background: #1e293b;
+            border: none;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 5px;
+            cursor: pointer
+        }
+
+        .editor {
+            flex: 1
+        }
+
+        .preview-side {
+            width: 55%;
+            background: #020617;
+            padding: 10px
+        }
+
+        .preview-area {
+            height: 100%;
+            background: #111827;
+            border-radius: 10px
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <div class="editor-side">
+            <div class="tabs">
+                <button class="active">index.html</button>
+            </div>
+            <div class="toolbar">
+                <span>index.html</span>
+                <button onclick="copyCode()">Copy</button>
+            </div>
+            <div id="htmlEditor" class="editor"></div>
+        </div>
+        <div class="preview-side">
+            <div class="preview-area">
+                <iframe id="preview"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+    <script>
+        require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' } });
+        window.MonacoEnvironment = {
+            getWorkerUrl: () => 'data:text/javascript;charset=utf-8,' +
+                encodeURIComponent(`self.MonacoEnvironment={baseUrl:'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/'}; importScripts('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/base/worker/workerMain.js');`)
+        };
+
+        require(['vs/editor/editor.main'], () => {
+            const editor = monaco.editor.create(document.getElementById('htmlEditor'), {
+                value: '',
+                language: 'html',
+                theme: 'vs-dark',
+                automaticLayout: true,
+                autoClosingTags: true,
+                autoClosingQuotes: 'always'
+            });
+
+            /* HTML BOILERPLATE on ! */
+            monaco.languages.registerCompletionItemProvider('html', {
+                triggerCharacters: ['!'],
+                provideCompletionItems: (model, position) => ({
+                    suggestions: [{
+                        label: '!',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            '<!DOCTYPE html>',
+                            '<html lang="en">',
+                            '<head>',
+                            '  <meta charset="UTF-8">',
+                            '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+                            '  <title>Document</title>',
+                            '</head>',
+                            '<body>',
+                            '',
+                            '</body>',
+                            '</html>'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+                        range: { startLineNumber: position.lineNumber, startColumn: position.column - 1, endLineNumber: position.lineNumber, endColumn: position.column }
+                    }]
+                })
+            });
+
+
+            /* ATTRIBUTE AUTOCOMPLETE */
+            monaco.languages.registerCompletionItemProvider('html', {
+                triggerCharacters: [' '],
+                provideCompletionItems: (model, position) => {
+                    const word = model.getWordUntilPosition(position);
+                    const range = { startLineNumber: position.lineNumber, startColumn: word.startColumn, endLineNumber: position.lineNumber, endColumn: word.endColumn };
+                    const attrs = ['class', 'id', 'src', 'href', 'alt', 'title', 'type', 'name', 'value', 'placeholder', 'style'];
+                    return { suggestions: attrs.map(a => ({ label: a, kind: monaco.languages.CompletionItemKind.Property, insertText: a + '="$1"$0', insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet, range })) };
+                }
+            });
+
+            editor.onDidChangeModelContent(() => {
+                preview.srcdoc = editor.getValue();
+            });
+
+            /* COPY */
+            function copyCode() {
+                navigator.clipboard.writeText(editor.getValue());
+                alert('Copied!');
+            }
+        });
+
+
+        /* 🔥 FINAL FIXED HTML AUTOCOMPLETE (NO << ERROR) */
+        const htmlTags = ['a', 'abbr', 'article', 'b', 'br', 'button', 'code', 'div', 'h1', 'h2', 'h3', 'img', 'p', 'section', 'span'];
+
+        monaco.languages.registerCompletionItemProvider('html', {
+            triggerCharacters: ['<'],
+            provideCompletionItems: (model, position) => {
+                const text = model.getValueInRange({
+                    startLineNumber: position.lineNumber,
+                    startColumn: 1,
+                    endLineNumber: position.lineNumber,
+                    endColumn: position.column
+                });
+
+                const match = text.match(/(<+)([a-zA-Z0-9]*)$/);
+                if (!match) return { suggestions: [] };
+
+                const full = match[0];
+                const typed = match[2];
+
+                return {
+                    suggestions: htmlTags
+                        .filter(t => t.startsWith(typed))
+                        .map(tag => ({
+                            label: `<${tag}>`,
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            insertText: tag === 'br' ? `<br>` : `<${tag}>$0</${tag}>`,
+                            insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+                            range: {
+                                startLineNumber: position.lineNumber,
+                                startColumn: position.column - full.length,
+                                endLineNumber: position.lineNumber,
+                                endColumn: position.column
+                            }
+                        }))
+                };
+            }
+        });
+
+
+
+    </script>
+</body>
+
+</html>

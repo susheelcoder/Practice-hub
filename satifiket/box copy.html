@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mini VS Code Editor</title>
+
+<style>
+*{box-sizing:border-box;font-family:Segoe UI,Arial}
+body{
+  margin:0;
+  background:#0f172a;
+  color:#fff;
+}
+
+/* LAYOUT */
+.app{
+  display:flex;
+  height:100vh;
+}
+
+/* LEFT EDITOR PANEL */
+.editor-side{
+  width:45%;
+  background:#020617;
+  display:flex;
+  flex-direction:column;
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  background:#020617;
+  border-bottom:1px solid #1e293b;
+}
+.tabs button{
+  padding:10px 16px;
+  border:none;
+  background:none;
+  color:#94a3b8;
+  cursor:pointer;
+}
+.tabs button.active{
+  color:#fff;
+  border-bottom:2px solid #3b82f6;
+}
+
+/* EDITOR AREA */
+.editor{
+  flex:1;
+}
+
+/* RIGHT PREVIEW */
+.preview-side{
+  width:55%;
+  background:#020617;
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+}
+
+/* PREVIEW CONTROLS */
+.controls{
+  display:flex;
+  gap:8px;
+  margin-bottom:8px;
+}
+.controls button{
+  padding:6px 14px;
+  border:none;
+  border-radius:6px;
+  background:#1e293b;
+  color:#fff;
+  cursor:pointer;
+}
+.controls button.active{
+  background:#3b82f6;
+}
+
+/* PREVIEW */
+.preview-area{
+  flex:1;
+  background:#111827;
+  border-radius:10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.device{
+  background:#fff;
+  border-radius:8px;
+  overflow:hidden;
+  transition:.4s;
+}
+.device.desktop{width:1200px;height:700px}
+.device.laptop{width:1024px;height:600px}
+.device.mobile{width:375px;height:667px}
+iframe{width:100%;height:100%;border:none}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- LEFT : VS CODE -->
+<div class="editor-side">
+
+  <div class="tabs">
+    <button class="active" onclick="showEditor('html')">index.html</button>
+    <button onclick="showEditor('css')">style.css</button>
+    <button onclick="showEditor('js')">script.js</button>
+  </div>
+
+  <div id="htmlEditor" class="editor"></div>
+  <div id="cssEditor" class="editor" style="display:none"></div>
+  <div id="jsEditor" class="editor" style="display:none"></div>
+
+</div>
+
+<!-- RIGHT : PREVIEW -->
+<div class="preview-side">
+
+  <div class="controls">
+    <button class="active" onclick="setDevice('desktop',this)">Desktop</button>
+    <button onclick="setDevice('laptop',this)">Laptop</button>
+    <button onclick="setDevice('mobile',this)">Mobile</button>
+  </div>
+
+  <div class="preview-area">
+    <div class="device desktop" id="device">
+      <iframe id="preview"></iframe>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+<!-- MONACO -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+
+<script>
+require.config({
+  paths:{vs:'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs'}
+});
+
+require(['vs/editor/editor.main'],()=>{
+
+  window.htmlEditor = monaco.editor.create(
+    document.getElementById('htmlEditor'),
+    {
+      value:`<h1>Hello VS Code</h1>
+<p>Pure VS Code like editor.</p>
+<button onclick="sayHi()">Click</button>`,
+      language:'html',
+      theme:'vs-dark',
+      automaticLayout:true
+    }
+  );
+
+  window.cssEditor = monaco.editor.create(
+    document.getElementById('cssEditor'),
+    {
+      value:`body{font-family:Arial;padding:20px}
+h1{color:#2563eb}
+button{
+  padding:10px 20px;
+  background:#22c55e;
+  border:none;
+  color:#fff;
+  border-radius:6px;
+}`,
+      language:'css',
+      theme:'vs-dark',
+      automaticLayout:true
+    }
+  );
+
+  window.jsEditor = monaco.editor.create(
+    document.getElementById('jsEditor'),
+    {
+      value:`function sayHi(){
+  alert("Hello from JS");
+}`,
+      language:'javascript',
+      theme:'vs-dark',
+      automaticLayout:true
+    }
+  );
+
+  [htmlEditor,cssEditor,jsEditor].forEach(ed=>{
+    ed.onDidChangeModelContent(updatePreview);
+  });
+
+  updatePreview();
+});
+
+/* TAB SWITCH */
+function showEditor(type){
+  document.querySelectorAll('.editor').forEach(e=>e.style.display='none');
+  document.getElementById(type+'Editor').style.display='block';
+
+  document.querySelectorAll('.tabs button')
+    .forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+/* PREVIEW */
+function updatePreview(){
+  preview.srcdoc=`
+  <html>
+  <head><style>${cssEditor.getValue()}</style></head>
+  <body>
+    ${htmlEditor.getValue()}
+    <script>${jsEditor.getValue()}<\/script>
+  </body>
+  </html>`;
+}
+
+/* DEVICE */
+function setDevice(type,btn){
+  device.className='device '+type;
+  document.querySelectorAll('.controls button')
+    .forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Responsive Preview Box</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    margin:0;
+    background:#0f172a;
+    color:#fff;
+}
+
+/* SECTION */
+section{
+    display:flex;
+    gap:20px;
+    padding:20px;
+    height:100vh;
+}
+
+/* LEFT: CODE BOX */
+.code-box{
+    width:35%;
+    background:#020617;
+    border-radius:12px;
+    padding:15px;
+}
+
+.code-box h3{
+    margin-bottom:10px;
+}
+
+.code-box textarea{
+    width:100%;
+    height:85%;
+    background:#020617;
+    color:#22c55e;
+    border:none;
+    outline:none;
+    resize:none;
+    font-size:14px;
+}
+
+/* RIGHT: PREVIEW BOX */
+.preview-box{
+    width:65%;
+    background:#020617;
+    border-radius:12px;
+    padding:15px;
+    display:flex;
+    flex-direction:column;
+}
+
+/* BUTTONS */
+.preview-controls{
+    display:flex;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.preview-controls button{
+    padding:6px 14px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    background:#1e293b;
+    color:#fff;
+}
+
+.preview-controls button.active{
+    background:#3b82f6;
+}
+
+/* PREVIEW AREA */
+.preview-area{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#111827;
+    border-radius:10px;
+}
+
+/* DEVICE FRAME */
+.device{
+    background:#fff;
+    color:#000;
+    border-radius:10px;
+    overflow:auto;
+    transition:all 0.4s ease;
+}
+
+/* DEVICE SIZES */
+.device.mobile{
+    width:375px;
+    height:667px;
+}
+
+.device.laptop{
+    width:1024px;
+    height:600px;
+}
+
+.device.desktop{
+    width:1200px;
+    height:700px;
+}
+</style>
+</head>
+
+<body>
+
+<section>
+
+    <!-- LEFT: BOX CODE -->
+    <div class="code-box">
+        <h3>HTML Content</h3>
+        <textarea id="code">
+<h1>Hello World</h1>
+<p>This is live responsive preview.</p>
+<button>Click Me</button>
+        </textarea>
+    </div>
+
+    <!-- RIGHT: BOX PREVIEW -->
+    <div class="preview-box">
+
+        <!-- SIZE BUTTONS -->
+        <div class="preview-controls">
+            <button class="active" onclick="setDevice('desktop',this)">Desktop</button>
+            <button onclick="setDevice('laptop',this)">Laptop</button>
+            <button onclick="setDevice('mobile',this)">Mobile</button>
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="preview-area">
+            <div class="device desktop" id="preview"></div>
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+const preview = document.getElementById("preview");
+const textarea = document.getElementById("code");
+
+function setDevice(type, btn){
+    preview.className = "device " + type;
+
+    document.querySelectorAll(".preview-controls button")
+        .forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+}
+
+textarea.addEventListener("input", ()=>{
+    preview.innerHTML = textarea.value;
+});
+
+// Initial load
+preview.innerHTML = textarea.value;
+</script>
+
+</body>
+</html>
