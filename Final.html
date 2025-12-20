@@ -109,7 +109,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;              
+            padding: 10px;
             overflow: hidden
         }
 
@@ -267,7 +267,7 @@
             });
 
             /* TAG AUTOCOMPLETE */
-            const htmlTags = ['a','abbr','article','b','br','button','code','div','h1','h2','h3','img','p','section','span'];
+            const htmlTags = ['a', 'abbr', 'article', 'b', 'br', 'button', 'code', 'div', 'h1', 'h2', 'h3', 'img', 'p', 'section', 'span'];
 
             monaco.languages.registerCompletionItemProvider('html', {
                 triggerCharacters: ['<'],
@@ -339,6 +339,97 @@
             alert('Code copied!');
         }
     </script>
+    <script>
+        if (window.innerWidth <= 768) {
+            setDevice('mobile');
+        }
+        function setDevice(type) {
+            device.className = 'device ' + type;
+        }
+
+    </script>
 
 </body>
+
 </html>
+
+
+<style>
+    /* 📱 MOBILE RESPONSIVE LAYOUT */
+    @media (max-width: 768px) {
+
+        .app {
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .editor-side,
+        .preview-side {
+            width: 100%;
+        }
+
+        /* Editor top */
+        .editor-side {
+            height: 55vh;
+        }
+
+        /* Preview bottom */
+        .preview-side {
+            height: 45vh;
+        }
+
+        .preview-area {
+            height: 100%;
+        }
+
+        .device {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 0;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Tabs scrollable on mobile */
+        .tabs {
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .controls {
+            justify-content: center;
+        }
+    }
+
+    /* 📱 MOBILE PREVIEW DEVICE FIX */
+    @media (max-width: 768px) {
+
+        .preview-area {
+            align-items: flex-start;
+        }
+
+        .device {
+            transform-origin: top center;
+        }
+
+        /* Scale devices to fit mobile screen */
+        .device.desktop {
+            transform: scale(0.25);
+        }
+
+        .device.laptop {
+            transform: scale(0.28);
+        }
+
+        .device.tablet {
+            transform: scale(0.45);
+        }
+
+        .device.mobile {
+            transform: scale(1);
+        }
+    }
+</style>
