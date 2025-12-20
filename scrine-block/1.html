@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll Page with A2HS Block</title>
+<style>
+  body {
+    height: 2000px; /* scroll test ke liye lamba page */
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #f9c, #6cf);
+    padding: 20px;
+  }
+
+  #scrollButton {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 100;
+  }
+</style>
 </head>
 <body>
-    
+
+<h1>Scroll Page Example</h1>
+<p>Yeh page lamba hai. Neeche scroll karne ke liye button dabayein.</p>
+
+<button id="scrollButton">Scroll Down</button>
+
+<script>
+  // Chrome / PWA install prompt ko block karna
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); // install prompt block
+    console.log("Add to Home Screen prompt blocked.");
+  });
+
+  // Scroll button
+  const scrollBtn = document.getElementById('scrollButton');
+  scrollBtn.addEventListener('click', function(e){
+    e.preventDefault(); // default action block
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
+  });
+</script>
+
 </body>
 </html>
