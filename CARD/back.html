@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Particle Background</title>
+    <style>
+        /* ================= RESET ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ================= BODY ================= */
+        body {
+            background: #020617;
+            color: #e5e7eb;
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ================= CANVAS ================= */
+        #canvas1 {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+
+        /* ================= JOIN PAGE ================= */
+        .join-page {
+            position: relative;
+            min-height: 100vh;
+            padding: 80px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .join-content {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .join-content h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            color: #38bdf8;
+            margin-bottom: 20px;
+        }
+
+        .join-content p {
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            line-height: 1.8;
+            color: #cbd5e1;
+            margin-bottom: 50px;
+        }
+
+        /* ================= FEATURES ================= */
+        .join-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .feature {
+            background: rgba(15, 15, 36, 0.8);
+            padding: 28px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: 0.3s ease;
+        }
+
+        .feature h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            font-size: 0.95rem;
+        }
+
+        .feature:hover {
+            transform: translateY(-6px);
+            background: rgba(56, 189, 248, 0.15);
+            border-color: #38bdf8;
+        }
+
+        /* ================= BUTTONS ================= */
+        .b-buttom {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 34px;
+            border-radius: 30px;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn.primary {
+            background: #38bdf8;
+            color: #020617;
+        }
+
+        .btn.primary:hover {
+            background: #0ea5e9;
+        }
+
+        .btn.secondary {
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
+        }
+
+        .btn.secondary:hover {
+            background: #38bdf8;
+            color: #020617;
+        }
+
+        /* ================= JOIN FORM (FULL SCREEN CENTER) ================= */
+        #joinForm {
+            display: none;
+            position: fixed;
+            inset: 0;
+            margin: auto;
+            max-width: 420px;
+            width: 90%;
+            height: fit-content;
+            padding: 30px;
+            background: rgba(15, 15, 36, 0.9);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 10;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        /* FORM TITLE */
+        #joinForm h3 {
+            color: #38bdf8;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* INPUTS */
+        #joinForm input,
+        #joinForm select {
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: transparent;
+            color: #e5e7eb;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        #joinForm input::placeholder {
+            color: #9ca3af;
+        }
+
+        #joinForm select option {
+            color: #020617;
+        }
+
+        /* FORM BUTTON */
+        #joinForm .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* ================= BACK BUTTON ================= */
+        .back-btn {
+            background: none;
+            border: none;
+            color: #38bdf8;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= ANIMATION ================= */
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================= MOBILE ================= */
+        @media (max-width: 600px) {
+            .join-page {
+                padding: 60px 6%;
+            }
+
+            .join-content p {
+                margin-bottom: 35px;
+            }
+
+
+            .feature {
+                background: rgba(15, 15, 36, 0.8);
+                padding: 5px;
+                border-radius: 18px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                transition: 0.3s ease;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+            .join-content p {
+                margin-bottom: 15px;
+            }
+
+        }
+        .back-btns{
+            position: absolute;
+            margin-left:10px ;
+            margin-top: 20px;
+            z-index: 1000;
+            font-size: 2rem;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="canvas1"></canvas>
+    <a class="back-btns" href="/home.html">🔙</a>
+    <section class="join-page">
+        <div class="join-overlay"></div>
+
+        <div class="join-content">
+            <div class="join-buttons">
+                <h1>Join Haproven Now</h1>
+
+                <p>
+                    Haproven is a tech community where people come together to learn,
+                    build, and grow. We work on real projects, join hackathons, and
+                    create useful tools using modern technology.
+                </p>
+
+                <div class="join-features">
+                    <div class="feature">
+                        <h3>🚀 Learn & Build</h3>
+                        <p>
+                            Learn new skills by working on real projects and taking
+                            part in hackathons.
+                        </p>
+                    </div>
+
+                    <div class="feature">
+                        <h3>🤝 Collaborate</h3>
+                        <p>
+                            Work with developers, designers, and creators and learn
+                            together as a team.
+                        </p>
+                    </div>
+
+                    <div class="feature">
+                        <h3>💡 Innovate</h3>
+                        <p>
+                            Share your ideas and turn them into useful and meaningful
+                            digital solutions.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="b-buttom">
+                <!-- BUTTON -->
+                <a href="javascript:void(0)" class="btn primary" onclick="toggleForm()">
+                    Join Community
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+
+        <form class="join-form" id="joinForm">
+            <button type="button" class="back-btn" onclick="toggleForm()">← Back</button>
+
+            <h3>Join the Community</h3>
+
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+
+            <select required>
+                <option value="">Your Interest</option>
+                <option>Web Development</option>
+                <option>App Development</option>
+                <option>UI / UX Design</option>
+                <option>AI / ML</option>
+                <option>Hackathons</option>
+                <option>Support</option>
+                <option>Other</option>
+            </select>
+
+            <button type="submit" class="btn primary">Join Now</button>
+        </form>
+
+
+    </section>
+
+
+    <script>
+        // JS: Particle System Logic
+        const canvas = document.getElementById("canvas1");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray;
+
+        // Particle Object
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 2) - 1;
+                let directionY = (Math.random() * 2) - 1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+                        + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                        ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+            init();
+        });
+
+        init();
+        animate();
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+<script>
+    function toggleForm() {
+        const form = document.getElementById("joinForm");
+        const joinPage = document.querySelector(".join-page");
+
+        if (form.style.display === "block") {
+            // CLOSE FORM
+            form.style.display = "none";
+            joinPage.style.display = "flex";
+        } else {
+            // OPEN FORM
+            form.style.display = "block";
+            joinPage.style.display = "none";
+        }
+    }
+</script>
