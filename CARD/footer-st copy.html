@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+
+    <div class="all">
+        <div class="A">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+            <div class="e"></div>
+            <div class="f"></div>
+            <div class="g"></div>
+            <div class="h"></div>
+            <div class="i"></div>
+            <div class="j"></div>
+            <div class="k"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <style>
+        .all {
+            width: 700px;
+            padding: 5px;
+            background-color: #4dff88;
+            margin: auto;
+        }
+
+        .A {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(100, 104, 100);
+            padding: 5px;
+            width: 700px;
+            border-radius: 20px;
+            border: 2px solid rgb(57, 239, 255);
+
+            bottom: 0;
+            position: fixed;
+            z-index: 100;
+
+
+
+
+        }
+
+
+
+        .A div {
+            height: 15px;
+            width: 60px;
+            margin: 1px;
+            border-radius: 5px;
+            opacity: 0.3;
+            animation: onebyone 2.2s infinite;
+        }
+
+        /* Colors + Delay */
+        .a {
+            background: #ff4d4d;
+            animation-delay: 0s;
+        }
+
+        .b {
+            background: #ff884d;
+            animation-delay: 0.2s;
+        }
+
+        .c {
+            background: #ffd24d;
+            animation-delay: 0.4s;
+        }
+
+        .d {
+            background: #b3ff4d;
+            animation-delay: 0.6s;
+        }
+
+        .e {
+            background: #4dff88;
+            animation-delay: 0.8s;
+        }
+
+        .f {
+            background: #4dffd2;
+            animation-delay: 1s;
+        }
+
+        .g {
+            background: #4dd2ff;
+            animation-delay: 1.2s;
+        }
+
+        .h {
+            background: #4d88ff;
+            animation-delay: 1.4s;
+        }
+
+        .i {
+            background: #7a4dff;
+            animation-delay: 1.6s;
+        }
+
+        .j {
+            background: #c44dff;
+            animation-delay: 1.8s;
+        }
+
+        .k {
+            background: #ff4da6;
+            animation-delay: 2s;
+        }
+
+        /* One Active, Others Off */
+        @keyframes onebyone {
+            0% {
+                opacity: 0.3;
+                transform: scaleY(0.6);
+            }
+
+            40% {
+                opacity: 1;
+                transform: scaleY(1.4);
+                box-shadow: 0 0 12px currentColor;
+            }
+
+            100% {
+                opacity: 0.3;
+                transform: scaleY(0.6);
+            }
+        }
+    </style>
+
+
+</body>
+
+</html>

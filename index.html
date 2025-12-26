@@ -1,41 +1,272 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>01-date-based-images</title>
-    <meta http-equiv="refresh" content="2; url=/Zoom Block Page/">
+    <title>Love Surprise</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* Pages */
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .page.active {
+            display: flex
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.05)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        /* Buttons */
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .nextBtn {
+            background: #fff;
+            color: #ff4f7b
+        }
+
+        .yes {
+            background: #00ffcc;
+            color: #000
+        }
+
+        .no {
+            background: #ff3333;
+            color: #fff;
+            position: absolute
+        }
+
+        /* Shayari */
+        .shayari {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            animation: fade 2s infinite alternate;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .6
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* Camera */
+        #cameraBox {
+            width: 260px;
+            height: 360px;
+            border-radius: 20px;
+            border: 4px solid #fff;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 255, 255, .6);
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Falling hearts */
+        .fall {
+            position: fixed;
+            top: -50px;
+            font-size: 24px;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+                opacity: 0
+            }
+        }
+
+        /* Sound */
+        .soundBtn {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: #fff;
+            color: #ff4f7b;
+            font-size: 20px;
+            padding: 12px;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 
-
 <body>
-    <h2>Practice</h2>
-    <h2>Date : 20/12/2025</h2>
-    <b>Page : Zoom Block Page </b>
+
+    <!-- SECTION 1 -->
+    <div class="page active" id="s1">
+        <h1>❓ Kya tumhe sacche pyaar ki kahaniyon par yakeen hai?</h1>
+        <p style="margin:15px 0;font-size:1.1rem;">
+            Kyunki kuch kahaniyan lafzon se nahi,<br>
+            seedha dil se likhi jaati hain ❤️
+        </p>
+        <button class="nextBtn" onclick="next(1)">Aage Dekho ➡️</button>
+    </div>
 
 
+    <!-- SECTION 2 -->
+    <div class="page" id="s2">
+        <h1>❤️ Tumhein kya lagta hai?</h1>
+        <p style="margin:15px 0;font-size:1.1rem;">
+            Kyunki mera dil kisi ek ke liye hi dhadak raha hai…<br>
+            kya tum usse humse milwane mein madad karogi? 💓
+        </p>
+        <button class="yes" onclick="next(2)">Haan 💖</button>
+        <button class="no" id="noBtn">Nahi 😅</button>
+    </div>
 
+
+    <!-- SECTION 3 -->
+    <div class="page" id="s3">
+        <h1>🌹 Dil ke baat, <br>
+            jo maine uske liye likhe hai 🌹</h1>
+        <div class="shayari">
+            कैसे कहें वो बात जिसके सब खिलाफ होंगे, <br>
+            रास्ते बदलना ही शायद इलाज होंगे।। <br>
+            यही सोच के शायद दिल दुखाया हूं,<br>
+            न चाहते हुए फिर से दिल लगाया है।। ❤️"
+
+            <p>
+                Aage gaane se pehle bata doon,<br>
+                woh mere liye bahut khaas hai 💫
+            </p>
+        </div>
+
+        <button class="nextBtn" onclick="next(3)">Aage Dekho ➡️</button>
+    </div>
+
+
+    <!-- SECTION 4 -->
+    <div class="page" id="s4">
+        <h1>📸 Ye hai meri jaan 💖</h1>
+        <p>
+            Itni khoobsurat hai ki alfaaz kam pad jaate hain…<br>
+            isse pyaar na ho, aisa ho hi nahi sakta 🌸
+        </p>
+        <div id="cameraBox">
+            <video id="video" autoplay playsinline></video>
+        </div>
+        <button class="nextBtn" onclick="next(4)">Next ➡️</button>
+    </div>
+
+
+    <!-- SECTION 5 -->
+    <div class="page" id="s5">
+        <h1>💞 I Love You 💞</h1>
+        <div class="shayari">
+            "Aaj main dil se nahi,<br>
+            balki apni zubaan se kehna chahta hoon…<br><br>
+            I Love You 💖<br>
+            aur tumhare muh se ye sunne ka<br>
+            intezaar kar raha hoon —<br>
+            <b>I Love You Too ❤️</b>"
+        </div>
+    </div>
+
+
+    <!-- Sound -->
+    <audio id="loveAudio">
+        <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7b98a7d49d.mp3">
+    </audio>
+
+    <script>
+        function next(n) {
+            document.getElementById("s" + n).classList.remove("active");
+            document.getElementById("s" + (n + 1)).classList.add("active");
+            if (n === 2) { startRain() }
+            if (n === 3) { startCamera() }
+        }
+
+        /* NO Button Run */
+        const noBtn = document.getElementById("noBtn");
+        noBtn.addEventListener("mouseover", () => {
+            noBtn.style.left = Math.random() * 80 + "%";
+            noBtn.style.top = Math.random() * 80 + "%";
+        });
+
+        /* Camera */
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    document.getElementById("video").srcObject = stream;
+                });
+        }
+
+        /* Hearts Rain */
+        function startRain() {
+            setInterval(() => {
+                const e = document.createElement("div");
+                e.className = "fall";
+                e.innerHTML = Math.random() > .5 ? "❤️" : "🌸";
+                e.style.left = Math.random() * 100 + "vw";
+                e.style.animationDuration = (3 + Math.random() * 3) + "s";
+                document.body.appendChild(e);
+                setTimeout(() => e.remove(), 6000);
+            }, 300);
+        }
+
+
+    </script>
 
 </body>
 
-
-
 </html>
-
-<style>
-    body {
-        margin-top: 50ch;
-        text-align: center;
-    }
-
-    h1,
-    p {
-        text-align: center;
-        color: rgb(0, 55, 255);
-    }
-
-    span {
-        color: rgb(226, 6, 255);
-    }
-</style>
