@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D.html</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #outer {
+            perspective: 500px;
+            width: 200px;
+            margin: 10px auto;
+        }
+
+
+        #cube {
+            transform-style: preserve-3d;
+            width: 100%;
+            height: 200px;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            font: bold 18pt arial;
+            transition: all 1s linear;
+        }
+
+        /* .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        } */
+
+        .face {
+            position: absolute;
+            opacity: .8;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* .face{
+            position: absolute;
+            opacity: .6;
+            backface-visibility: hidden;
+            width: 100%;
+            height: 100%;
+        } */
+
+        #left {
+            background-color: green;
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+
+        #right {
+            background-color: orange;
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        #up {
+            background-color: red;
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        #down {
+            background-color: magenta;
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+
+        #back {
+            background-color: indigo;
+            transform: rotateY(-180deg) translateZ(100px);
+        }
+
+        #front {
+            background-color: blue;
+            transform: rotateX(0deg) translateZ(100px);
+        }
+
+
+        @keyframes spin {
+            to {
+                transform: rotateX(1turn) rotateY(1turn);
+            }
+
+        }
+
+        #l:hover~#cube {
+            transform: rotateY(90deg);
+        }
+
+        #r:hover~#cube {
+            transform: rotateY(-90deg);
+        }
+
+        #u:hover~#cube {
+            transform: rotateX(-90deg);
+        }
+
+        #d:hover~#cube {
+            transform: rotateX(90deg);
+        }
+
+        #b:hover~#cube {
+            transform: rotateY(-180deg);
+        }
+
+        #s:hover~#cube {
+            animation: spin 6s linear 10;
+        }
+
+        /* #outer{
+            perspective: 50px;
+        } */
+
+
+  
+    </style>
+</head>
+
+<body>
+
+
+
+    <div id="outer">
+            <button id="l">L</button>
+            <button id="r">R</button>
+            <button id="u">U</button>
+            <button id="d">D</button>
+            <button id="b">B</button>
+            <button id="s">Spin</button>
+        <br><br><br><br>
+        <div id='cube'>
+            <div class="face" id="left"><br><br><br>LEFR</div>
+            <div class="face" id="right"><br><br><br>RIGHT</div>
+            <div class="face" id="up"><br><br><br>UP</div>
+            <div class="face" id="down"><br><br><br>DOWN</div>
+            <div class="face" id="back"><br><br><br>BACK</div>
+            <div class="face" id="front"><br><br><br>FRONT</div>
+        </div>
+    </div>
+
+
+
+    <script>
+        document.getElementById('cube').style.animation = 'spin 6s linear 1'
+    </script>
+
+</body>
+
+</html>
